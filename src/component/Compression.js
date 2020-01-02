@@ -110,6 +110,8 @@ const Compression = () => {
           <div className="has-centered">
             <div className="container level-item has-centered">
               <p>Your converted file is ready to download!</p>
+            </div>
+            <div className="container level-item has-centered">
               <p>File Size: 32kb</p>
             </div>
             <div className="container level-item has-centered">

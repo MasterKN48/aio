@@ -67,7 +67,9 @@ const App = location => {
           </ul>
         </div>
         <Suspense
-          fallback={<button class="button is-dark is-loading">Loading</button>}
+          fallback={
+            <button className="button is-dark is-loading">Loading</button>
+          }
         >
           <Switch>
             <Route exact path="/" component={Image} />
