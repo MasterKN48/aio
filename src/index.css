@@ -45,7 +45,7 @@ code {
   background-color: #efeeee;
   border-radius: 1em;
   border: 0px solid #ccc;
-  box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1),
+  box-shadow: -10px -10px 10px 0 rgba(255, 255, 255, 1),
     12px 12px 12px 0 rgba(0, 0, 0, 0.1);
 }
 .button {

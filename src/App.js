@@ -68,7 +68,9 @@ const App = location => {
         </div>
         <Suspense
           fallback={
-            <button className="button is-dark is-loading">Loading</button>
+            <div className="container has-text-centered has-centered">
+              <button className="button is-dark is-loading">Loading</button>
+            </div>
           }
         >
           <Switch>
