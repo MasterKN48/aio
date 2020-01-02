@@ -1,14 +1,30 @@
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #eefeee;
 }
 
+@font-face {
+  font-family: "sf";
+  src: url("./sf.ttf");
+}
+* {
+  font-family: "sf";
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+@media only screen and (max-width: 600px) {
+  .shift {
+    padding-left: 25%;
+  }
 }
