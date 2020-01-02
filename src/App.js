@@ -3,6 +3,14 @@ import { withRouter, NavLink, Switch, Route } from "react-router-dom";
 import Image from "./component/Image";
 import Document from "./component/Document";
 import Footer from "./component/Footer";
+
+const NotFound = () => (
+  <div className="container level has-centered">
+    <h1>404</h1>
+    <br />
+    <br />
+  </div>
+);
 const App = location => {
   return (
     <section className="container-fluid is-mobile">
@@ -22,7 +30,7 @@ const App = location => {
                 location.location.pathname !== "/" ? null : "is-active"
               }
             >
-              <NavLink to="/img">
+              <NavLink to="/">
                 <span className="icon is-small">
                   <i className="fas fa-image" aria-hidden="true"></i>
                 </span>
@@ -45,8 +53,8 @@ const App = location => {
         </div>
         <Switch>
           <Route exact path="/" component={Image} />
-
           <Route path="/docs" component={Document} />
+          <Route component={NotFound} />
         </Switch>
       </div>
       <Footer />
