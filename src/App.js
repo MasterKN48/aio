@@ -44,6 +44,7 @@ const App = location => {
           </ul>
         </div>
         <Switch>
+          <Route exact path="/" component={Image} />
           <Route path="/img" component={Image} />
           <Route path="/docs" component={Document} />
         </Switch>

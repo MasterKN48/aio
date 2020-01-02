@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Image = () => {
   const [load, setLoading] = useState(false);
-  const [success, setSuccess] = useState(true);
+  const [success, setSuccess] = useState(false);
   const [name, setName] = useState("");
   const showName = e => {
     console.log(e.target.files[0]);
@@ -11,6 +11,10 @@ const Image = () => {
   const submit = e => {
     e.preventDefault();
     setLoading(true);
+    setInterval(() => {
+      setLoading(false);
+    }, 10000);
+    setSuccess(true);
   };
   return (
     <section className="container">

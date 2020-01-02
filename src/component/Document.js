@@ -11,6 +11,10 @@ const Document = () => {
   const submit = e => {
     e.preventDefault();
     setLoading(true);
+    setInterval(() => {
+      setLoading(false);
+    }, 10000);
+    setSuccess(true);
   };
   return (
     <section className="container">
@@ -28,7 +32,7 @@ const Document = () => {
                   <select>
                     <option defaultValue>Original File Types</option>
                     <option>PDF</option>
-                    <option>DOCS</option>
+                    <option>DOC</option>
                     <option>PPT</option>
                   </select>
                 </div>
@@ -51,7 +55,7 @@ const Document = () => {
                 <select>
                   <option defaultValue>New File Types</option>
                   <option>PDF</option>
-                  <option>DOCS</option>
+                  <option>DOC</option>
                   <option>PPT</option>
                 </select>
               </div>
@@ -69,8 +73,8 @@ const Document = () => {
               <input
                 className="file-input"
                 type="file"
-                name="docs"
-                accept=".doc, .docx,.ppt, .pptx,.txt,.pdf"
+                name="image"
+                accept="image/*"
                 onChange={showName}
               />
               <span className="file-cta">
@@ -84,7 +88,7 @@ const Document = () => {
           </div>
         </div>
       </div>
-      <div className="level">
+      <div className="level has-centered">
         {load ? (
           <div className="level-item has-centered">
             <progress className="progress is-dark" max="100">
