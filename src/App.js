@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { withRouter, NavLink, Switch, Route } from "react-router-dom";
-import Image from "./component/Image";
-import Document from "./component/Document";
+// import Image from "./component/Image";
+// import Document from "./component/Document";
 import Footer from "./component/Footer";
 
+const Image = lazy(() => import("./component/Image"));
+const Document = lazy(() => import("./component/Document"));
 const NotFound = () => (
   <div className="container level has-centered">
     <h1>404</h1>
@@ -51,11 +53,13 @@ const App = location => {
             </li>
           </ul>
         </div>
-        <Switch>
-          <Route exact path="/" component={Image} />
-          <Route path="/docs" component={Document} />
-          <Route component={NotFound} />
-        </Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route exact path="/" component={Image} />
+            <Route path="/docs" component={Document} />
+            <Route component={NotFound} />
+          </Switch>
+        </Suspense>
       </div>
       <Footer />
     </section>
