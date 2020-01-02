@@ -19,7 +19,7 @@ const App = location => {
           <ul>
             <li
               className={
-                location.location.pathname !== "/img" ? null : "is-active"
+                location.location.pathname !== "/" ? null : "is-active"
               }
             >
               <NavLink to="/img">
@@ -45,7 +45,7 @@ const App = location => {
         </div>
         <Switch>
           <Route exact path="/" component={Image} />
-          <Route path="/img" component={Image} />
+
           <Route path="/docs" component={Document} />
         </Switch>
       </div>
