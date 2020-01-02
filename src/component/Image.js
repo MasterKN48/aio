@@ -13,8 +13,8 @@ const Image = () => {
     setLoading(true);
     setInterval(() => {
       setLoading(false);
+      setSuccess(true);
     }, 10000);
-    setSuccess(true);
   };
   return (
     <section className="container">
@@ -92,6 +92,7 @@ const Image = () => {
             <progress className="progress is-dark" max="100">
               30%
             </progress>
+            <p>converting...</p>
           </div>
         ) : (
           <div className="level-item has-centered">
@@ -108,7 +109,7 @@ const Image = () => {
         {success ? (
           <div className="has-centered">
             <div className="container level-item has-centered">
-              <p>Your convert file is ready to download!</p>
+              <p>Your converted file is ready to download!</p>
             </div>
             <div className="container level-item has-centered">
               <button className="button is-dark is-outlined">

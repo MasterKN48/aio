@@ -2,6 +2,7 @@
   "name": "aio",
   "version": "0.1.0",
   "private": true,
+  "start":".",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -12,7 +13,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0"
   },
-  "homepage": "https://masterkn48.github.io/aio",
+  "homepage": "https://masterkn48.github.io/aio/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
