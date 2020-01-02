@@ -1,20 +1,51 @@
 import React, { useState } from "react";
 
 const Document = () => {
+  // eslint-disable-next-line
+  const [fr, setFr] = useState(["DOC", "PPT", "TXT", "HTML", "CSV"]); // eslint-disable-next-line
+  const [to, setTo] = useState(["PDF"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [name, setName] = useState("");
+  const [file, setFile] = useState(null);
+  const [type, setType] = useState({
+    from: "",
+    to: ""
+  });
   const showName = e => {
-    console.log(e.target.files[0]);
-    setName(e.target.files[0].name);
+    setFile(e.target.files[0]);
+  };
+  const fileType = e => {
+    //console.log(e.target.value);
+    setType({
+      ...type,
+      [e.target.name]: e.target.value
+    });
   };
   const submit = e => {
     e.preventDefault();
+    if (file === null) {
+      alert("Please first select file and types");
+      return;
+    }
+    if (file.size > 112582912) {
+      alert("File Size must be less then 11mb.");
+      return;
+    }
+    if (type.from === "") {
+      console.log(type);
+      alert("'From' file type is not selected!");
+      return;
+    }
+    if (type.to === "") {
+      alert("'To' file type is not selected");
+      return;
+    }
     setSuccess(false);
     setLoading(true);
     setInterval(() => {
       setLoading(false);
       setSuccess(true);
+      console.log(file);
     }, 5000);
   };
   return (
@@ -30,11 +61,11 @@ const Document = () => {
             <div className="field">
               <div className="control has-icons-left">
                 <div className="select is-rounded">
-                  <select>
+                  <select name="from" onChange={fileType}>
                     <option defaultValue>Original File Types</option>
-                    <option>PDF</option>
-                    <option>DOC</option>
-                    <option>PPT</option>
+                    {fr.map((i, k) => {
+                      return <option key={k}>{i}</option>;
+                    })}
                   </select>
                 </div>
                 <div className="icon is-small is-left">
@@ -53,11 +84,11 @@ const Document = () => {
           <div className="field shift">
             <div className="control has-icons-left">
               <div className="select is-rounded">
-                <select>
+                <select name="to" onChange={fileType}>
                   <option defaultValue>New File Types</option>
-                  <option>PDF</option>
-                  <option>DOC</option>
-                  <option>PPT</option>
+                  {to.map((i, k) => {
+                    return <option key={k}>{i}</option>;
+                  })}
                 </select>
               </div>
               <div className="icon is-small is-left">
@@ -84,7 +115,9 @@ const Document = () => {
                 </span>
                 <span className="file-label">Choose a file…</span>
               </span>
-              <span className="file-name">{name}</span>
+              <span className="file-name">
+                {file === null ? null : file.name}
+              </span>
             </label>
           </div>
         </div>
