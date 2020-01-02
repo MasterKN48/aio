@@ -54,7 +54,7 @@ const App = location => {
             </li>
             <li
               className={
-                location.location.pathname !== "/docs" ? null : "is-active"
+                location.location.pathname !== "/comp" ? null : "is-active"
               }
             >
               <NavLink to="/comp">
@@ -66,7 +66,9 @@ const App = location => {
             </li>
           </ul>
         </div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={<button class="button is-dark is-loading">Loading</button>}
+        >
           <Switch>
             <Route exact path="/" component={Image} />
             <Route path="/docs" component={Document} />

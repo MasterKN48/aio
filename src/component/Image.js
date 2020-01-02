@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 const Image = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["PNG", "JPG", "ICO", "SVG", "GIF"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PNG", "JPG", "ICO"]);
+  const [fr, setFr] = useState(["PNG", "JPEG", "JPG", "ICO", "SVG", "GIF"]); // eslint-disable-next-line
+  const [to, setTo] = useState(["PNG", "JPG", "JPEG", "ICO"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -41,7 +41,19 @@ const Image = () => {
       alert("'To' file type is not selected");
       return;
     }
-
+    if (type.from.toLowerCase() !== file.name.split(".").pop()) {
+      alert(
+        "Mismatch in selected file type: " +
+          file.name.split(".").pop() +
+          " with 'From' Select box: " +
+          type.from.toLowerCase()
+      );
+      return;
+    }
+    if (type.from === type.to) {
+      alert("'From' and 'To' is same!");
+      return;
+    }
     setSuccess(false);
     setLoading(true);
     setTimeout(() => {
