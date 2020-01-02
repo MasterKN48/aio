@@ -4,8 +4,18 @@ const Compression = () => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
   const [load, setLoading] = useState(false);
+  const [type, setType] = useState({
+    from: ""
+  });
   const showName = e => {
     setFile(e.target.files[0]);
+  };
+  const fileType = e => {
+    //console.log(e.target.value);
+    setType({
+      ...type,
+      [e.target.name]: e.target.value
+    });
   };
   const submit = e => {
     e.preventDefault();
@@ -32,7 +42,7 @@ const Compression = () => {
           <div className="field">
             <div className="control has-icons-left">
               <div className="select is-rounded">
-                <select name="from">
+                <select name="from" onChange={fileType}>
                   <option defaultValue>Original File Types</option>
                   <option>PDF</option>
                   <option>PNG</option>
