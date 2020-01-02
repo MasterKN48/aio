@@ -1,4 +1,7 @@
-This is template as per my perference
+# AIO : Platform for file type conversion
+##### under developement
+This project aims to create a pwa app for converting file types related to images,document only using client side js.There for no privacy conscern for end user.This platform do all conversion task at your system only,it has no server stuff for any logging or file storing purpose.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
