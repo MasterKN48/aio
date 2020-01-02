@@ -10,11 +10,12 @@ const Document = () => {
   };
   const submit = e => {
     e.preventDefault();
+    setSuccess(false);
     setLoading(true);
     setInterval(() => {
       setLoading(false);
-    }, 10000);
-    setSuccess(true);
+      setSuccess(true);
+    }, 5000);
   };
   return (
     <section className="container">
@@ -90,10 +91,12 @@ const Document = () => {
       </div>
       <div className="level has-centered">
         {load ? (
-          <div className="level-item has-centered">
-            <progress className="progress is-dark" max="100">
-              30%
-            </progress>
+          <div className="columns level-item has-centered">
+            <div className="column is-two-thirds">
+              <progress className="progress is-dark" max="100">
+                30%
+              </progress>
+            </div>
           </div>
         ) : (
           <div className="level-item has-centered">
@@ -110,7 +113,7 @@ const Document = () => {
         {success ? (
           <div className="has-centered">
             <div className="container level-item has-centered">
-              <p>Your convert file is ready to download!</p>
+              <p>Your converted file is ready to download!</p>
             </div>
             <div className="container level-item has-centered">
               <button className="button is-dark is-outlined">

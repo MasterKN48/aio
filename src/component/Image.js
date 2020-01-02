@@ -10,11 +10,12 @@ const Image = () => {
   };
   const submit = e => {
     e.preventDefault();
+    setSuccess(false);
     setLoading(true);
     setInterval(() => {
       setLoading(false);
       setSuccess(true);
-    }, 10000);
+    }, 5000);
   };
   return (
     <section className="container">
@@ -88,11 +89,12 @@ const Image = () => {
       </div>
       <div className="level has-centered">
         {load ? (
-          <div className="level-item has-centered">
-            <progress className="progress is-dark" max="100">
-              30%
-            </progress>
-            <p>converting...</p>
+          <div className="columns level-item has-centered">
+            <div className="column is-two-thirds">
+              <progress className="progress is-dark" max="100">
+                30%
+              </progress>
+            </div>
           </div>
         ) : (
           <div className="level-item has-centered">
