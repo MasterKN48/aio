@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const Image = () => {
   const [load, setLoading] = useState(false);
+  const [success, setSuccess] = useState(true);
   const [name, setName] = useState("");
   const showName = e => {
     console.log(e.target.files[0]);
@@ -81,7 +82,7 @@ const Image = () => {
           </div>
         </div>
       </div>
-      <div className="level">
+      <div className="level has-centered">
         {load ? (
           <div className="level-item has-centered">
             <progress className="progress is-dark" max="100">
@@ -99,6 +100,23 @@ const Image = () => {
           </div>
         )}
       </div>
+      <div className="has-centered">
+        {success ? (
+          <div className="has-centered">
+            <div className="container level-item has-centered">
+              <p>Your convert file is ready to download!</p>
+            </div>
+            <div className="container level-item has-centered">
+              <button className="button is-dark is-outlined">
+                <span className="icon is-small">
+                  <i className="fas fa-download"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </div>
+      <br />
     </section>
   );
 };

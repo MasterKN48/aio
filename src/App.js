@@ -1,9 +1,8 @@
-// eslint-disable-next-line
-import React, { useState, useEffect, useRef } from "react";
-//import Routers from "./router";
+import React from "react";
 import { withRouter, NavLink, Switch, Route } from "react-router-dom";
 import Image from "./component/Image";
 import Document from "./component/Document";
+import Footer from "./component/Footer";
 const App = location => {
   return (
     <section className="container-fluid is-mobile">
@@ -49,6 +48,7 @@ const App = location => {
           <Route path="/docs" component={Document} />
         </Switch>
       </div>
+      <Footer />
     </section>
   );
 };

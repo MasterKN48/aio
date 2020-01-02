@@ -9,14 +9,14 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #eefeee;
+  background-color: #efeeee;
 }
 
 @font-face {
   font-family: "sf";
   src: url("./sf.ttf");
 }
-* {
+body {
   font-family: "sf";
 }
 code {
@@ -27,4 +27,7 @@ code {
   .shift {
     padding-left: 25%;
   }
+}
+.footer {
+  padding: 3rem 1.5rem 4rem;
 }
