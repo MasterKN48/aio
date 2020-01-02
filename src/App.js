@@ -6,6 +6,7 @@ import Footer from "./component/Footer";
 
 const Image = lazy(() => import("./component/Image"));
 const Document = lazy(() => import("./component/Document"));
+const Compression = lazy(() => import("./component/Compression"));
 const NotFound = () => (
   <div className="container level has-centered">
     <h1>404</h1>
@@ -51,12 +52,25 @@ const App = location => {
                 <span>Documents</span>
               </NavLink>
             </li>
+            <li
+              className={
+                location.location.pathname !== "/docs" ? null : "is-active"
+              }
+            >
+              <NavLink to="/comp">
+                <span className="icon is-small">
+                  <i className="fas fa-file-archive"></i>
+                </span>
+                <span>Compression</span>
+              </NavLink>
+            </li>
           </ul>
         </div>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>
             <Route exact path="/" component={Image} />
             <Route path="/docs" component={Document} />
+            <Route path="/comp" component={Compression} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>

@@ -32,12 +32,12 @@ const Image = () => {
       alert("File Size must be less then 11mb.");
       return;
     }
-    if (type.from === "") {
+    if (type.from === "" || type.from === "Original File Types") {
       console.log(type);
       alert("'From' file type is not selected!");
       return;
     }
-    if (type.to === "") {
+    if (type.to === "" || type.to === "New File Types") {
       alert("'To' file type is not selected");
       return;
     }
