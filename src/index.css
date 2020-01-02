@@ -57,7 +57,7 @@ code {
 }
 .hero {
   background-color: #efeeee;
-  border-radius: 0.2em;
+  border-radius: 0.13em;
   border: 0px solid #ccc;
   box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1),
     12px 12px 12px 0 rgba(0, 0, 0, 0.1);
