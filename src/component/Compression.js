@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { JPGCompressor, downloadJPG } from "./Algorithms/JPGCompressor";
+import { PNGCompressor, downloadPNG } from "./Algorithms/PNGCompressor";
+import { downloadWEBP, WEBPCompressor } from "./Algorithms/WEBPCompressor";
 const Compression = () => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -28,7 +30,6 @@ const Compression = () => {
       return;
     }
     if (type.from === "" || type.from === "Original File Types") {
-      console.log(type);
       alert("'From' file type is not selected!");
       return;
     }
@@ -41,13 +42,28 @@ const Compression = () => {
       );
       return false;
     }
-    if (type.from === "jpg") {
-      console.log("ok");
+    if (type.from === "JPG" || type.from === "JPEG") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function() {
         const dataURL = reader.result;
         JPGCompressor(dataURL);
+      };
+    }
+    if (type.from === "PNG") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        PNGCompressor(dataURL);
+      };
+    }
+    if (type.from === "WEBP") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        WEBPCompressor(dataURL);
       };
     }
     setSuccess(false);
@@ -59,9 +75,14 @@ const Compression = () => {
   };
   //handle download accordingly
   const download = () => {
-    if (type.from === "JPG") {
-      console.log("ok");
+    if (type.from === "JPG" || type.from === "JPEG") {
       downloadJPG(file.name.split(".")[0]); //passing file name
+    }
+    if (type.from === "PNG") {
+      downloadPNG(file.name.split(".")[0]); //passing file name
+    }
+    if (type.from === "WEBP") {
+      downloadWEBP(file.name.split(".")[0]); //passing file name
     }
   };
   return (
@@ -133,7 +154,11 @@ const Compression = () => {
           </div>
         )}
       </div>
-      <canvas className="container has-centered" id="jpgtopng"></canvas>
+      <canvas
+        className="container has-centered"
+        style={{ display: "none" }}
+        id="jpgtopng"
+      ></canvas>
       <div className="has-centered">
         {success ? (
           <div className="has-centered">
@@ -141,7 +166,7 @@ const Compression = () => {
               <p>Your converted file is ready to download!</p>
             </div>
             <div className="container level-item has-centered">
-              <p>File Size: 32kb</p>
+              <p id="size"></p>
             </div>
             <br />
             <div className="container level-item has-centered">

@@ -5,15 +5,23 @@ export const JPGCompressor = dataURL => {
   var canvas = document.getElementById("jpgtopng");
   var ctx = canvas.getContext("2d");
   var image = new Image();
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height = window.innerHeight;
   image.onload = function() {
-    var width = image.naturalWidth || image.width;
-    var height = image.naturalHeight || image.height;
-    ctx.canvas.width = width;
-    ctx.canvas.height = height;
-    console.log(width, height);
-    ctx.drawImage(image, 0, 0, width, height);
+    ctx.drawImage(image, 0, 0, window.innerWidth, window.innerHeight);
   };
   image.src = dataURL;
+  setTimeout(() => {
+    let dataURI = document
+      .getElementById("jpgtopng")
+      .toDataURL("image/jpg", 0.03)
+      .replace(/^data:image\/[^;]/, "data:application/octet-stream");
+    var head = "data:image/jpg;base64,";
+    var imgFileSize =
+      Math.round(((dataURI.length - head.length) * 3) / 4) / 1024;
+    document.getElementById("size").innerText =
+      "File Size: " + imgFileSize.toFixed(2) + "kb";
+  }, 3000);
 };
 export const downloadJPG = name => {
   //file name as argument
@@ -21,7 +29,7 @@ export const downloadJPG = name => {
   // converting data uri to blob aken form github gist
   let dataURI = document
     .getElementById("jpgtopng")
-    .toDataURL("image/jpg", 0.7)
+    .toDataURL("image/jpg", 0.001)
     .replace(/^data:image\/[^;]/, "data:application/octet-stream");
   let byteString = atob(dataURI.split(",")[1]);
 
@@ -40,5 +48,6 @@ export const downloadJPG = name => {
 
   let dataView = new DataView(arrayBuffer);
   let blob = new Blob([dataView], { type: mimeString });
+
   document.getElementById("downloader").href = URL.createObjectURL(blob);
 };
