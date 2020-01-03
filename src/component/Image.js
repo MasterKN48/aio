@@ -3,15 +3,7 @@ import { JpgToPngConvertor, downloadPNG } from "./Algorithms/JPG_To_PNG";
 import { JpgToJPEGConvertor, downloadJPEG } from "./Algorithms/JPG_ToJPEG";
 const Image = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState([
-    "PNG",
-    "JPEG",
-    "JPG",
-    "ICO",
-    "WEBP",
-    "SVG",
-    "GIF"
-  ]); // eslint-disable-next-line
+  const [fr, setFr] = useState(["PNG", "JPEG", "JPG", "ICO", "WEBP"]); // eslint-disable-next-line
   const [to, setTo] = useState(["PNG", "JPG", "JPEG", "ICO", "WEBP"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -33,36 +25,6 @@ const Image = () => {
   };
   const submit = e => {
     e.preventDefault();
-    if (!errorHandle()) {
-      return;
-    }
-    setSuccess(false);
-    setLoading(true);
-    // selecting algorithms accordingly
-    if (type.from === "JPG" && type.to === "PNG") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        JpgToPngConvertor(dataURL);
-      };
-    }
-    if (type.from === "JPG" && type.to === "JPEG") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        JpgToJPEGConvertor(dataURL);
-      };
-    }
-
-    // showing loading just for fun
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-    }, 2000);
-  };
-  const errorHandle = () => {
     if (file === null) {
       alert("Please first select file and types");
       return false;
@@ -93,7 +55,33 @@ const Image = () => {
       alert("'From' and 'To' is same!");
       return false;
     }
+    setSuccess(false);
+    setLoading(true);
+    // selecting algorithms accordingly
+    if (type.from === "JPG" && type.to === "PNG") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        JpgToPngConvertor(dataURL);
+      };
+    }
+    if (type.from === "JPG" && type.to === "JPEG") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        JpgToJPEGConvertor(dataURL);
+      };
+    }
+
+    // showing loading just for fun
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess(true);
+    }, 2000);
   };
+
   //handle download accordingly
   const download = () => {
     if (type.from === "JPG" && type.to === "PNG") {
