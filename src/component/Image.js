@@ -68,16 +68,17 @@ const Image = () => {
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
-    }, 5000);
+    }, 2000);
   };
   const download = () => {
-    console.log("download");
-    document.getElementById("downloader").download =
-      file.name.split(".")[0] + ".png";
-    document.getElementById("downloader").href = document
-      .getElementById("jpgtopng")
-      .toDataURL("image/png")
-      .replace(/^data:image\/[^;]/, "data:application/octet-stream");
+    if (type.from === "JPG" && type.to === "PNG") {
+      document.getElementById("downloader").download =
+        file.name.split(".")[0] + ".png";
+      document.getElementById("downloader").href = document
+        .getElementById("jpgtopng")
+        .toDataURL("image/png")
+        .replace(/^data:image\/[^;]/, "data:application/octet-stream");
+    }
   };
   return (
     <section className="container">
@@ -189,7 +190,6 @@ const Image = () => {
                 onClick={download}
                 id="downloader"
                 href="#i"
-                download="image.png"
                 className="button is-dark is-outlined"
               >
                 <span className="icon is-small">
