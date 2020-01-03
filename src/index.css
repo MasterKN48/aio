@@ -70,3 +70,6 @@ html {
   width: 0px; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */
 }
+.spd {
+  box-shadow: none;
+}
