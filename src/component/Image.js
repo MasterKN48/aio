@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { JpgToPngConvertor, downloadPNG } from "./Algorithms/JPG_To_PNG";
 import { JpgToJPEGConvertor, downloadJPEG } from "./Algorithms/JPG_ToJPEG";
+import { JpgToWebpConvertor, downloadWEBP } from "./Algorithms/JPG_To_WEBP";
 const Image = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState(["PNG", "JPEG", "JPG", "ICO", "WEBP"]); // eslint-disable-next-line
@@ -74,6 +75,14 @@ const Image = () => {
         JpgToJPEGConvertor(dataURL);
       };
     }
+    if (type.from === "JPG" && type.to === "WEBP") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        JpgToWebpConvertor(dataURL);
+      };
+    }
 
     // showing loading just for fun
     setTimeout(() => {
@@ -89,6 +98,9 @@ const Image = () => {
     }
     if (type.from === "JPG" && type.to === "JPEG") {
       downloadJPEG(file.name.split(".")[0]); //passing file name
+    }
+    if (type.from === "JPG" && type.to === "WEBP") {
+      downloadWEBP(file.name.split(".")[0]); //passing file name
     }
   };
   return (
