@@ -208,6 +208,7 @@ const Image = () => {
             <div className="container level-item has-centered">
               <p>Your converted file is ready to download!</p>
             </div>
+            <br />
             <div className="container level-item has-centered">
               <a
                 onClick={download}
