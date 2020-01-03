@@ -209,11 +209,7 @@ const Image = () => {
           </div>
         )}
       </div>
-      <canvas
-        className="container has-centered"
-        id="jpgtopng"
-        style={{ display: "none" }}
-      ></canvas>
+      <canvas className="container has-centered" id="jpgtopng"></canvas>
       <div className="has-centered">
         {success ? (
           <div className="has-centered">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { JPGCompressor, downloadJPG } from "./Algorithms/JPGCompressor";
 const Compression = () => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -27,13 +27,42 @@ const Compression = () => {
       alert("File Size must be less then 11mb.");
       return;
     }
-
+    if (type.from === "" || type.from === "Original File Types") {
+      console.log(type);
+      alert("'From' file type is not selected!");
+      return;
+    }
+    if (type.from.toLowerCase() !== file.name.split(".").pop()) {
+      alert(
+        "Mismatch in selected file type: " +
+          file.name.split(".").pop() +
+          " with 'From' Select box: " +
+          type.from.toLowerCase()
+      );
+      return false;
+    }
+    if (type.from === "jpg") {
+      console.log("ok");
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        JPGCompressor(dataURL);
+      };
+    }
     setSuccess(false);
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
-    }, 5000);
+    }, 3000);
+  };
+  //handle download accordingly
+  const download = () => {
+    if (type.from === "JPG") {
+      console.log("ok");
+      downloadJPG(file.name.split(".")[0]); //passing file name
+    }
   };
   return (
     <section className="container">
@@ -48,7 +77,7 @@ const Compression = () => {
                   <option>PNG</option>
                   <option>JPG</option>
                   <option>JPEG</option>
-                  <option>ICO</option>
+                  <option>WEBP</option>
                 </select>
               </div>
               <div className="icon is-small is-left">
@@ -104,7 +133,7 @@ const Compression = () => {
           </div>
         )}
       </div>
-
+      <canvas className="container has-centered" id="jpgtopng"></canvas>
       <div className="has-centered">
         {success ? (
           <div className="has-centered">
@@ -114,12 +143,18 @@ const Compression = () => {
             <div className="container level-item has-centered">
               <p>File Size: 32kb</p>
             </div>
+            <br />
             <div className="container level-item has-centered">
-              <button className="button is-dark is-outlined">
+              <a
+                onClick={download}
+                id="downloader"
+                href="#i"
+                className="button is-dark is-outlined"
+              >
                 <span className="icon is-small">
                   <i className="fas fa-download"></i>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         ) : null}
