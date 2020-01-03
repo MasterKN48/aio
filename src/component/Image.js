@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import JpgToPngConvertor from "./Algorithms/JPG_To_PNG";
+import { JpgToPngConvertor, downloadPNG } from "./Algorithms/JPG_To_PNG";
 const Image = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["PNG", "JPEG", "JPG", "ICO", "SVG", "GIF"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PNG", "JPG", "JPEG", "ICO"]);
+  const [fr, setFr] = useState([
+    "PNG",
+    "JPEG",
+    "JPG",
+    "ICO",
+    "WEBP",
+    "SVG",
+    "GIF"
+  ]); // eslint-disable-next-line
+  const [to, setTo] = useState(["PNG", "JPG", "JPEG", "ICO", "WEBP"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -24,38 +32,12 @@ const Image = () => {
   };
   const submit = e => {
     e.preventDefault();
-    if (file === null) {
-      alert("Please first select file and types");
-      return;
-    }
-    if (file.size > 112582912) {
-      alert("File Size must be less then 11mb.");
-      return;
-    }
-    if (type.from === "" || type.from === "Original File Types") {
-      console.log(type);
-      alert("'From' file type is not selected!");
-      return;
-    }
-    if (type.to === "" || type.to === "New File Types") {
-      alert("'To' file type is not selected");
-      return;
-    }
-    if (type.from.toLowerCase() !== file.name.split(".").pop()) {
-      alert(
-        "Mismatch in selected file type: " +
-          file.name.split(".").pop() +
-          " with 'From' Select box: " +
-          type.from.toLowerCase()
-      );
-      return;
-    }
-    if (type.from === type.to) {
-      alert("'From' and 'To' is same!");
+    if (!errorHandle()) {
       return;
     }
     setSuccess(false);
     setLoading(true);
+    // selecting algorithms accordingly
     if (type.from === "JPG" && type.to === "PNG") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
@@ -70,14 +52,42 @@ const Image = () => {
       setSuccess(true);
     }, 2000);
   };
+  const errorHandle = () => {
+    if (file === null) {
+      alert("Please first select file and types");
+      return false;
+    }
+    if (file.size > 112582912) {
+      alert("File Size must be less then 11mb.");
+      return false;
+    }
+    if (type.from === "" || type.from === "Original File Types") {
+      console.log(type);
+      alert("'From' file type is not selected!");
+      return false;
+    }
+    if (type.to === "" || type.to === "New File Types") {
+      alert("'To' file type is not selected");
+      return false;
+    }
+    if (type.from.toLowerCase() !== file.name.split(".").pop()) {
+      alert(
+        "Mismatch in selected file type: " +
+          file.name.split(".").pop() +
+          " with 'From' Select box: " +
+          type.from.toLowerCase()
+      );
+      return false;
+    }
+    if (type.from === type.to) {
+      alert("'From' and 'To' is same!");
+      return false;
+    }
+  };
+  //handle download accordingly
   const download = () => {
     if (type.from === "JPG" && type.to === "PNG") {
-      document.getElementById("downloader").download =
-        file.name.split(".")[0] + ".png";
-      document.getElementById("downloader").href = document
-        .getElementById("jpgtopng")
-        .toDataURL("image/png")
-        .replace(/^data:image\/[^;]/, "data:application/octet-stream");
+      downloadPNG(file.name.split(".")[0]); //passing file name
     }
   };
   return (
