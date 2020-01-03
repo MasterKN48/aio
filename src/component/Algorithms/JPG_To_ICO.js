@@ -22,7 +22,7 @@ export const JpgToIcoConvertor = dataURL => {
 };
 export const downloadICO = name => {
   //file name as argument
-  document.getElementById("downloader").download = name + ".jpeg";
+  document.getElementById("downloader").download = name + ".ico";
   // converting data uri to blob aken form github gist
   let dataURI = document
     .getElementById("jpgtopng")

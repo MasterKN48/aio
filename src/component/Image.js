@@ -5,7 +5,7 @@ import { JpgToWebpConvertor, downloadWEBP } from "./Algorithms/JPG_To_WEBP";
 import { JpgToIcoConvertor, downloadICO } from "./Algorithms/JPG_To_ICO";
 const Image = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["PNG", "JPEG", "JPG", "ICO", "WEBP"]); // eslint-disable-next-line
+  const [fr, setFr] = useState(["PNG", "JPEG", "JPG", "WEBP"]); // eslint-disable-next-line
   const [to, setTo] = useState(["PNG", "JPG", "JPEG", "ICO", "WEBP"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
