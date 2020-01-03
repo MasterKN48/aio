@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import JpgToPngConvertor from "./Algorithms/JPG_To_PNG";
 const Image = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState(["PNG", "JPEG", "JPG", "ICO", "SVG", "GIF"]); // eslint-disable-next-line
@@ -56,10 +56,28 @@ const Image = () => {
     }
     setSuccess(false);
     setLoading(true);
+    if (type.from === "JPG" && type.to === "PNG") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        JpgToPngConvertor(dataURL);
+      };
+    }
+
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
     }, 5000);
+  };
+  const download = () => {
+    console.log("download");
+    document.getElementById("downloader").download =
+      file.name.split(".")[0] + ".png";
+    document.getElementById("downloader").href = document
+      .getElementById("jpgtopng")
+      .toDataURL("image/png")
+      .replace(/^data:image\/[^;]/, "data:application/octet-stream");
   };
   return (
     <section className="container">
@@ -155,6 +173,11 @@ const Image = () => {
           </div>
         )}
       </div>
+      <canvas
+        className="container has-centered"
+        id="jpgtopng"
+        style={{ display: "none" }}
+      ></canvas>
       <div className="has-centered">
         {success ? (
           <div className="has-centered">
@@ -162,11 +185,17 @@ const Image = () => {
               <p>Your converted file is ready to download!</p>
             </div>
             <div className="container level-item has-centered">
-              <button className="button is-dark is-outlined">
+              <a
+                onClick={download}
+                id="downloader"
+                href="#i"
+                download="image.png"
+                className="button is-dark is-outlined"
+              >
                 <span className="icon is-small">
                   <i className="fas fa-download"></i>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         ) : null}
