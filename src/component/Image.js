@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { JpgToPngConvertor, downloadPNG } from "./Algorithms/JPG_To_PNG";
+import { JpgToJPEGConvertor, downloadJPEG } from "./Algorithms/JPG_ToJPEG";
 const Image = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState([
@@ -46,7 +47,16 @@ const Image = () => {
         JpgToPngConvertor(dataURL);
       };
     }
+    if (type.from === "JPG" && type.to === "JPEG") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        JpgToJPEGConvertor(dataURL);
+      };
+    }
 
+    // showing loading just for fun
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
@@ -88,6 +98,9 @@ const Image = () => {
   const download = () => {
     if (type.from === "JPG" && type.to === "PNG") {
       downloadPNG(file.name.split(".")[0]); //passing file name
+    }
+    if (type.from === "JPG" && type.to === "JPEG") {
+      downloadJPEG(file.name.split(".")[0]); //passing file name
     }
   };
   return (
