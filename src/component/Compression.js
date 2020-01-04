@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { JPGCompressor, downloadJPG } from "./Algorithms/JPGCompressor";
 import { PNGCompressor, downloadPNG } from "./Algorithms/PNGCompressor";
 import { downloadWEBP, WEBPCompressor } from "./Algorithms/WEBPCompressor";
+import { PDFCompressor, downloadPDF } from "./Algorithms/PDFCompressor";
+
 const Compression = () => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -66,6 +68,14 @@ const Compression = () => {
         WEBPCompressor(dataURL);
       };
     }
+    if (type.from === "PDF") {
+      let reader = new FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        PDFCompressor(dataURL);
+      };
+    }
     setSuccess(false);
     setLoading(true);
     setTimeout(() => {
@@ -83,6 +93,9 @@ const Compression = () => {
     }
     if (type.from === "WEBP") {
       downloadWEBP(file.name.split(".")[0]); //passing file name
+    }
+    if (type.from === "PDF") {
+      downloadPDF(file.name.split(".")[0]); //passing file name
     }
   };
   return (
@@ -108,7 +121,9 @@ const Compression = () => {
           </div>
         </div>
       </div>
-
+      <p style={{ color: "red" }}>
+        *All Compression algo working except pdf compression*
+      </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
           <div className="file is-dark has-name is-boxed">
@@ -156,8 +171,8 @@ const Compression = () => {
       </div>
       <canvas
         className="container has-centered"
-        style={{ display: "none" }}
         id="jpgtopng"
+        style={{ display: "none" }}
       ></canvas>
       <div className="has-centered">
         {success ? (

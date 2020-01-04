@@ -165,6 +165,9 @@ const Image = () => {
           </div>
         </div>
       </div>
+      <p style={{ color: "red" }}>
+        *Only JPG to other is working now, rest are under construction.*
+      </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
           <div className="file is-dark has-name is-boxed">

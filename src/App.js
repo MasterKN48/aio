@@ -74,9 +74,9 @@ const App = location => {
           }
         >
           <Switch>
-            <Route exact path="/" component={Image} />
-            <Route path="/docs" component={Document} />
-            <Route path="/comp" component={Compression} />
+            <Route exact path="/aio/" component={Image} />
+            <Route path="/aio/docs" component={Document} />
+            <Route path="/aio/comp" component={Compression} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>

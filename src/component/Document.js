@@ -98,6 +98,9 @@ const Document = () => {
           </div>
         </div>
       </div>
+      <p style={{ color: "red" }}>
+        *Under Construction: Algorithms for Document file conversion*
+      </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
           <div className="file is-dark has-name is-boxed">
