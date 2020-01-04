@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { JpgToAllConvertor, downloadFromJpg } from "./Algorithms/JPG_To_ALL";
 import { PngToAllConvertor, downloadFromPng } from "./Algorithms/PNG_To_ALL";
 import { WebpToAllConvertor, downloadFromWebp } from "./Algorithms/WEBP_To_ALL";
+import { SvgToAllConvertor, downloadFromSvg } from "./Algorithms/SVG_To_ALL";
+import { GifToAllConvertor, downloadFromGif } from "./Algorithms/GIF_To_ALL";
 const Image = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState(["PNG", "JPEG/JPG", "WEBP", "SVG", "GIF"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PNG", "JPEG/JPG", "ICO", "WEBP"]);
+  const [to, setTo] = useState(["PNG", "JPEG/JPG", "ICO", "WEBP", "SVG"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -44,18 +46,37 @@ const Image = () => {
       return false;
     }
     if (type.from.toLowerCase() !== file.name.split(".").pop()) {
-      alert(
-        "Mismatch in selected file type: " +
-          file.name.split(".").pop() +
-          " with 'From' Select box: " +
-          type.from.toLowerCase()
-      );
-      return false;
+      if (type.from === "JPEG/JPG") {
+        if (
+          file.name.split(".").pop() !== "jpg" &&
+          file.name.split(".").pop() !== "jpeg"
+        ) {
+          alert(
+            "Mismatch in selected file type: " +
+              file.name.split(".").pop() +
+              " with 'From' Select box: " +
+              type.from.toLowerCase()
+          );
+          return false;
+        }
+      } else {
+        alert(
+          "Mismatch in selected file type: " +
+            file.name.split(".").pop() +
+            " with 'From' Select box: " +
+            type.from.toLowerCase()
+        );
+        return false;
+      }
     }
     if (type.from === type.to) {
       alert("'From' and 'To' is same!");
       return false;
     }
+    // if (type.from === "GIF" && type.to === "SVG") {
+    //   alert("Not Possible Now");
+    //   return false;
+    // }
     setSuccess(false);
     setLoading(true);
     // selecting algorithms accordingly
@@ -83,6 +104,22 @@ const Image = () => {
         WebpToAllConvertor(dataURL);
       };
     }
+    if (type.from === "SVG") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        SvgToAllConvertor(dataURL);
+      };
+    }
+    if (type.from === "GIF") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        GifToAllConvertor(dataURL);
+      };
+    }
     // showing loading just for fun
     setTimeout(() => {
       setLoading(false);
@@ -92,20 +129,55 @@ const Image = () => {
 
   //handle download accordingly
   const download = () => {
-    if (type.from === "JPG") {
-      downloadFromJpg(
-        file.name.split(".")[0],
-        type.to.toLowerCase(),
-        setSuccess
-      ); //passing file name
+    if (type.from === "JPEG/JPG") {
+      let s;
+      if (type.to === "SVG") {
+        s = "SVG";
+      } else {
+        s = type.to;
+      }
+
+      downloadFromJpg(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
     if (type.from === "PNG") {
-      let s = type.to === "JPEG/JPG" ? "JPEG" : type.to;
+      let s;
+      if (type.to === "JPEG/JPG") {
+        s = "JPEG";
+      }
+      if (type.to === "SVG") {
+        s = "SVG+XML";
+      } else {
+        s = type.to;
+      }
       downloadFromPng(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
     if (type.from === "WEBP") {
-      let s = type.to === "JPEG/JPG" ? "JPEG" : type.to;
+      let s;
+      if (type.to === "JPEG/JPG") {
+        s = "JPEG";
+      }
+      if (type.to === "SVG") {
+        s = "SVG+XML";
+      } else {
+        s = type.to;
+      }
       downloadFromWebp(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
+    }
+    if (type.from === "SVG") {
+      let s = type.to === "JPEG/JPG" ? "JPEG" : type.to;
+      downloadFromSvg(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
+    }
+    if (type.from === "GIF") {
+      let s;
+      if (type.to === "JPEG/JPG") {
+        s = "JPEG";
+      }
+      if (type.to === "SVG") {
+        s = "SVG+XML";
+      } else {
+        s = type.to;
+      }
+      downloadFromSvg(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
   };
   return (
@@ -159,8 +231,9 @@ const Image = () => {
         </div>
       </div>
       <p style={{ color: "red" }}>
-        *Only JPG,PNG,WEBP to other is working now, rest are under
-        construction.*
+        *Only JPG,PNG,WEBP,SVG to other is working now, rest are under
+        construction.But all to ico,svg has a bit problem about mime type but
+        working fine*
       </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">

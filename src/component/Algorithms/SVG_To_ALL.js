@@ -6,7 +6,7 @@
  * 5-> convert canvas to image by toDataUrl() function in js. (In main file)
  */
 
-export const JpgToAllConvertor = dataURL => {
+export const SvgToAllConvertor = dataURL => {
   var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");
   var image = new Image();
@@ -19,12 +19,9 @@ export const JpgToAllConvertor = dataURL => {
   };
   image.src = dataURL;
 };
-export const downloadFromJpg = (name, type, setSuccess) => {
+export const downloadFromSvg = (name, type, setSuccess) => {
   //file name as argument
   document.getElementById("downloader").download = name + "." + type;
-
-  type = type === "svg" ? "svg+xml" : type;
-
   // converting data uri to blob aken form github gist
   let dataURI = document
     .getElementById("canvas")

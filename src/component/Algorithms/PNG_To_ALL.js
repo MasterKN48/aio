@@ -23,6 +23,7 @@ export const downloadFromPng = (name, type, setSuccess) => {
   //file name as argument
   document.getElementById("downloader").download = name + "." + type;
   // converting data uri to blob aken form github gist
+  type = type === "svg" ? "svg+xml" : type;
   let dataURI = document
     .getElementById("canvas")
     .toDataURL("image/" + type, 0.9);
