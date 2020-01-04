@@ -33,7 +33,7 @@ const App = location => {
                 location.location.pathname !== "/aio" ? null : "is-active"
               }
             >
-              <NavLink to="/">
+              <NavLink to="/aio">
                 <span className="icon is-small">
                   <i className="fas fa-image" aria-hidden="true"></i>
                 </span>
@@ -45,7 +45,7 @@ const App = location => {
                 location.location.pathname !== "/aio/docs" ? null : "is-active"
               }
             >
-              <NavLink to="/docs">
+              <NavLink to="/aio/docs">
                 <span className="icon is-small">
                   <i className="far fa-file-alt" aria-hidden="true"></i>
                 </span>
@@ -57,7 +57,7 @@ const App = location => {
                 location.location.pathname !== "/aio/comp" ? null : "is-active"
               }
             >
-              <NavLink to="/comp">
+              <NavLink to="/aio/comp">
                 <span className="icon is-small">
                   <i className="fas fa-file-archive"></i>
                 </span>
