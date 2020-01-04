@@ -177,7 +177,7 @@ const Image = () => {
       } else {
         s = type.to;
       }
-      downloadFromSvg(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
+      downloadFromGif(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
   };
   return (
