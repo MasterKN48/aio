@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { JpgToPngConvertor, downloadPNG } from "./Algorithms/JPG_To_PNG";
+import { PngToJpgConvertor, downloadJPG } from "./Algorithms/PNG_To_JPG";
 import { JpgToJPEGConvertor, downloadJPEG } from "./Algorithms/JPG_ToJPEG";
 import { JpgToWebpConvertor, downloadWEBP } from "./Algorithms/JPG_To_WEBP";
 import { JpgToIcoConvertor, downloadICO } from "./Algorithms/JPG_To_ICO";
@@ -68,6 +69,14 @@ const Image = () => {
         JpgToPngConvertor(dataURL);
       };
     }
+    if (type.from === "PNG" && type.to === "JPG") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        const dataURL = reader.result;
+        PngToJpgConvertor(dataURL);
+      };
+    }
     if (type.from === "JPG" && type.to === "JPEG") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
@@ -113,6 +122,9 @@ const Image = () => {
     }
     if (type.from === "JPG" && type.to === "ICO") {
       downloadICO(file.name.split(".")[0]); //passing file name
+    }
+    if (type.from === "PNG" && type.to === "JPG") {
+      downloadJPG(file.name.split(".")[0]); //passing file name
     }
   };
   return (
