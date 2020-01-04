@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { JPGCompressor, downloadJPG } from "./Algorithms/JPGCompressor";
-import { PNGCompressor, downloadPNG } from "./Algorithms/PNGCompressor";
+// import { JPGCompressor, downloadJPG } from "./Algorithms/JPGCompressor";
+// import { PNGCompressor, downloadPNG } from "./Algorithms/PNGCompressor";
 import { downloadWEBP, WEBPCompressor } from "./Algorithms/WEBPCompressor";
 import { PDFCompressor, downloadPDF } from "./Algorithms/PDFCompressor";
-
+import { PNG_JPG_Compressor } from "./Algorithms/PNG_JPG_Compressor";
 const Compression = () => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -44,21 +44,23 @@ const Compression = () => {
       );
       return false;
     }
-    if (type.from === "JPG" || type.from === "JPEG") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        JPGCompressor(dataURL);
-      };
-    }
-    if (type.from === "PNG") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        PNGCompressor(dataURL);
-      };
+    setSuccess(false);
+    setLoading(true);
+    // if (type.from === "JPG" || type.from === "JPEG") {
+    //   let reader = new FileReader();
+    //   reader.readAsDataURL(file);
+    //   reader.onload = function() {
+    //     const dataURL = reader.result;
+    //     JPGCompressor(dataURL);
+    //   };
+    // }
+    if (
+      type.from === "JPG" ||
+      type.from === "JPEG" ||
+      type.from === "PNG" ||
+      type.from === "ICO"
+    ) {
+      PNG_JPG_Compressor(file, setLoading, setSuccess);
     }
     if (type.from === "WEBP") {
       let reader = new FileReader();
@@ -76,21 +78,9 @@ const Compression = () => {
         PDFCompressor(dataURL);
       };
     }
-    setSuccess(false);
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-    }, 3000);
   };
   //handle download accordingly
   const download = () => {
-    if (type.from === "JPG" || type.from === "JPEG") {
-      downloadJPG(file.name.split(".")[0]); //passing file name
-    }
-    if (type.from === "PNG") {
-      downloadPNG(file.name.split(".")[0]); //passing file name
-    }
     if (type.from === "WEBP") {
       downloadWEBP(file.name.split(".")[0]); //passing file name
     }
@@ -112,6 +102,7 @@ const Compression = () => {
                   <option>JPG</option>
                   <option>JPEG</option>
                   <option>WEBP</option>
+                  <option>ICO</option>
                 </select>
               </div>
               <div className="icon is-small is-left">
