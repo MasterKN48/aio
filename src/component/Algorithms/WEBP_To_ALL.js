@@ -6,8 +6,8 @@
  * 5-> convert canvas to image by toDataUrl() function in js. (In main file)
  */
 
-export const JpgToPngConvertor = dataURL => {
-  var canvas = document.getElementById("jpgtopng");
+export const WebpToAllConvertor = dataURL => {
+  var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");
   var image = new Image();
   image.onload = function() {
@@ -19,14 +19,12 @@ export const JpgToPngConvertor = dataURL => {
   };
   image.src = dataURL;
 };
-export const downloadPNG = name => {
+export const downloadFromWebp = (name, type, setSuccess) => {
   //file name as argument
-  document.getElementById("downloader").download = name + ".png";
+  document.getElementById("downloader").download = name + "." + type;
   // converting data uri to blob aken form github gist
-  let dataURI = document
-    .getElementById("jpgtopng")
-    .toDataURL("image/png", 0.9)
-    .replace(/^data:image\/[^;]/, "data:application/octet-stream");
+  let dataURI = document.getElementById("canvas").toDataURL("image/" + type, 1);
+
   let byteString = atob(dataURI.split(",")[1]);
 
   // separate out the mime component
@@ -45,4 +43,5 @@ export const downloadPNG = name => {
   let dataView = new DataView(arrayBuffer);
   let blob = new Blob([dataView], { type: mimeString });
   document.getElementById("downloader").href = URL.createObjectURL(blob);
+  setSuccess(false);
 };

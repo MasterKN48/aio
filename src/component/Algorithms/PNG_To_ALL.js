@@ -6,8 +6,8 @@
  * 5-> convert canvas to image by toDataUrl() function in js. (In main file)
  */
 
-export const JpgToWebpConvertor = dataURL => {
-  var canvas = document.getElementById("jpgtopng");
+export const PngToAllConvertor = dataURL => {
+  var canvas = document.getElementById("canvas"); // just canvas name is jpgtopng
   var ctx = canvas.getContext("2d");
   var image = new Image();
   image.onload = function() {
@@ -15,19 +15,18 @@ export const JpgToWebpConvertor = dataURL => {
     var height = image.naturalHeight || image.height;
     ctx.canvas.width = width;
     ctx.canvas.height = height;
-    console.log(width, height);
     ctx.drawImage(image, 0, 0, width, height);
   };
   image.src = dataURL;
 };
-export const downloadWEBP = name => {
+export const downloadFromPng = (name, type, setSuccess) => {
   //file name as argument
-  document.getElementById("downloader").download = name + ".webp";
+  document.getElementById("downloader").download = name + "." + type;
   // converting data uri to blob aken form github gist
   let dataURI = document
-    .getElementById("jpgtopng")
-    .toDataURL("image/webp", 1.0)
-    .replace(/^data:image\/[^;]/, "data:application/octet-stream");
+    .getElementById("canvas")
+    .toDataURL("image/" + type, 0.9);
+
   let byteString = atob(dataURI.split(",")[1]);
 
   // separate out the mime component
@@ -46,4 +45,5 @@ export const downloadWEBP = name => {
   let dataView = new DataView(arrayBuffer);
   let blob = new Blob([dataView], { type: mimeString });
   document.getElementById("downloader").href = URL.createObjectURL(blob);
+  setSuccess(false);
 };

@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { JpgToPngConvertor, downloadPNG } from "./Algorithms/JPG_To_PNG";
-import { PngToJpgConvertor, downloadJPG } from "./Algorithms/PNG_To_JPG";
-import { JpgToJPEGConvertor, downloadJPEG } from "./Algorithms/JPG_ToJPEG";
-import { JpgToWebpConvertor, downloadWEBP } from "./Algorithms/JPG_To_WEBP";
-import { JpgToIcoConvertor, downloadICO } from "./Algorithms/JPG_To_ICO";
+import { JpgToAllConvertor, downloadFromJpg } from "./Algorithms/JPG_To_ALL";
+import { PngToAllConvertor, downloadFromPng } from "./Algorithms/PNG_To_ALL";
+import { WebpToAllConvertor, downloadFromWebp } from "./Algorithms/WEBP_To_ALL";
 const Image = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["PNG", "JPEG", "JPG", "WEBP"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PNG", "JPG", "JPEG", "ICO", "WEBP"]);
+  const [fr, setFr] = useState(["PNG", "JPEG/JPG", "WEBP", "SVG", "GIF"]); // eslint-disable-next-line
+  const [to, setTo] = useState(["PNG", "JPEG/JPG", "ICO", "WEBP"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -61,47 +59,30 @@ const Image = () => {
     setSuccess(false);
     setLoading(true);
     // selecting algorithms accordingly
-    if (type.from === "JPG" && type.to === "PNG") {
+    if (type.from === "JPEG/JPG") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function() {
         const dataURL = reader.result;
-        JpgToPngConvertor(dataURL);
+        JpgToAllConvertor(dataURL);
       };
     }
-    if (type.from === "PNG" && type.to === "JPG") {
+    if (type.from === "PNG") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function() {
         const dataURL = reader.result;
-        PngToJpgConvertor(dataURL);
+        PngToAllConvertor(dataURL);
       };
     }
-    if (type.from === "JPG" && type.to === "JPEG") {
+    if (type.from === "WEBP") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function() {
         const dataURL = reader.result;
-        JpgToJPEGConvertor(dataURL);
+        WebpToAllConvertor(dataURL);
       };
     }
-    if (type.from === "JPG" && type.to === "WEBP") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        JpgToWebpConvertor(dataURL);
-      };
-    }
-    if (type.from === "JPG" && type.to === "ICO") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        JpgToIcoConvertor(dataURL);
-      };
-    }
-
     // showing loading just for fun
     setTimeout(() => {
       setLoading(false);
@@ -111,20 +92,20 @@ const Image = () => {
 
   //handle download accordingly
   const download = () => {
-    if (type.from === "JPG" && type.to === "PNG") {
-      downloadPNG(file.name.split(".")[0]); //passing file name
+    if (type.from === "JPG") {
+      downloadFromJpg(
+        file.name.split(".")[0],
+        type.to.toLowerCase(),
+        setSuccess
+      ); //passing file name
     }
-    if (type.from === "JPG" && type.to === "JPEG") {
-      downloadJPEG(file.name.split(".")[0]); //passing file name
+    if (type.from === "PNG") {
+      let s = type.to === "JPEG/JPG" ? "JPEG" : type.to;
+      downloadFromPng(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
-    if (type.from === "JPG" && type.to === "WEBP") {
-      downloadWEBP(file.name.split(".")[0]); //passing file name
-    }
-    if (type.from === "JPG" && type.to === "ICO") {
-      downloadICO(file.name.split(".")[0]); //passing file name
-    }
-    if (type.from === "PNG" && type.to === "JPG") {
-      downloadJPG(file.name.split(".")[0]); //passing file name
+    if (type.from === "WEBP") {
+      let s = type.to === "JPEG/JPG" ? "JPEG" : type.to;
+      downloadFromWebp(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
   };
   return (
@@ -178,7 +159,8 @@ const Image = () => {
         </div>
       </div>
       <p style={{ color: "red" }}>
-        *Only JPG to other is working now, rest are under construction.*
+        *Only JPG,PNG,WEBP to other is working now, rest are under
+        construction.*
       </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
@@ -226,7 +208,7 @@ const Image = () => {
       </div>
       <canvas
         className="container has-centered"
-        id="jpgtopng"
+        id="canvas"
         style={{ display: "none" }}
       ></canvas>
       <div className="has-centered">
