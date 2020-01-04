@@ -36,13 +36,28 @@ const Compression = () => {
       return;
     }
     if (type.from.toLowerCase() !== file.name.split(".").pop()) {
-      alert(
-        "Mismatch in selected file type: " +
-          file.name.split(".").pop() +
-          " with 'From' Select box: " +
-          type.from.toLowerCase()
-      );
-      return false;
+      if (type.from === "JPEG/JPG") {
+        if (
+          file.name.split(".").pop() !== "jpg" &&
+          file.name.split(".").pop() !== "jpeg"
+        ) {
+          alert(
+            "Mismatch in selected file type: " +
+              file.name.split(".").pop() +
+              " with 'From' Select box: " +
+              type.from.toLowerCase()
+          );
+          return false;
+        }
+      } else {
+        alert(
+          "Mismatch in selected file type: " +
+            file.name.split(".").pop() +
+            " with 'From' Select box: " +
+            type.from.toLowerCase()
+        );
+        return false;
+      }
     }
     setSuccess(false);
     setLoading(true);
@@ -55,8 +70,7 @@ const Compression = () => {
     //   };
     // }
     if (
-      type.from === "JPG" ||
-      type.from === "JPEG" ||
+      type.from === "JPEG/JPG" ||
       type.from === "PNG" ||
       type.from === "ICO"
     ) {
@@ -82,10 +96,10 @@ const Compression = () => {
   //handle download accordingly
   const download = () => {
     if (type.from === "WEBP") {
-      downloadWEBP(file.name.split(".")[0]); //passing file name
+      downloadWEBP(file.name.split(".")[0], setSuccess); //passing file name
     }
     if (type.from === "PDF") {
-      downloadPDF(file.name.split(".")[0]); //passing file name
+      downloadPDF(file.name.split(".")[0], setSuccess); //passing file name
     }
   };
   return (
@@ -99,8 +113,7 @@ const Compression = () => {
                   <option defaultValue>Original File Types</option>
                   <option>PDF</option>
                   <option>PNG</option>
-                  <option>JPG</option>
-                  <option>JPEG</option>
+                  <option>JPEG/JPG</option>
                   <option>WEBP</option>
                   <option>ICO</option>
                 </select>

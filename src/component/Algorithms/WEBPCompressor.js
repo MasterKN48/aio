@@ -23,7 +23,7 @@ export const WEBPCompressor = dataURL => {
       "File Size: " + imgFileSize.toFixed(2) + "kb";
   }, 3000);
 };
-export const downloadWEBP = name => {
+export const downloadWEBP = (name, setSucess) => {
   //file name as argument
   document.getElementById("downloader").download = name + ".webp";
   // converting data uri to blob aken form github gist
@@ -50,4 +50,5 @@ export const downloadWEBP = name => {
   let blob = new Blob([dataView], { type: mimeString });
 
   document.getElementById("downloader").href = URL.createObjectURL(blob);
+  setSucess(false);
 };
