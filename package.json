@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "browser-image-compression": "^1.0.6",
+    "docx2html": "^1.1.0",
     "gh-pages": "^2.1.1",
     "jspdf": "^1.5.3",
     "react": "^16.12.0",

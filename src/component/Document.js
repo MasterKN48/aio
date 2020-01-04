@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-
+import { HtmlToPdf } from "./Algorithms/HtmlToPdf";
 const Document = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["DOC", "PPT", "TXT", "HTML", "CSV"]); // eslint-disable-next-line
+  const [fr, setFr] = useState(["DOCX", "PPT", "TXT", "HTML", "CSV"]); // eslint-disable-next-line
   const [to, setTo] = useState(["PDF"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -40,13 +40,24 @@ const Document = () => {
       alert("'To' file type is not selected");
       return;
     }
+    if (type.from === "DOCX") {
+      console.log("object");
+    }
+    if (type.from === "HTML") {
+      console.log("object");
+    }
     setSuccess(false);
     setLoading(true);
-    setInterval(() => {
+    setTimeout(() => {
       setLoading(false);
       setSuccess(true);
       console.log(file);
     }, 5000);
+  };
+  const download = () => {
+    if (type.from === "HTML") {
+      HtmlToPdf(file);
+    }
   };
   return (
     <section className="container">
@@ -151,8 +162,9 @@ const Document = () => {
             <div className="container level-item has-centered">
               <p>Your converted file is ready to download!</p>
             </div>
+            <br />
             <div className="container level-item has-centered">
-              <button className="button is-dark is-outlined">
+              <button className="button is-dark is-outlined" onClick={download}>
                 <span className="icon is-small">
                   <i className="fas fa-download"></i>
                 </span>
