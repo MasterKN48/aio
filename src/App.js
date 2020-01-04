@@ -30,7 +30,7 @@ const App = location => {
           <ul>
             <li
               className={
-                location.location.pathname !== "/" ? null : "is-active"
+                location.location.pathname !== "/aio" ? null : "is-active"
               }
             >
               <NavLink to="/">
@@ -42,7 +42,7 @@ const App = location => {
             </li>
             <li
               className={
-                location.location.pathname !== "/docs" ? null : "is-active"
+                location.location.pathname !== "/aio/docs" ? null : "is-active"
               }
             >
               <NavLink to="/docs">
@@ -54,7 +54,7 @@ const App = location => {
             </li>
             <li
               className={
-                location.location.pathname !== "/comp" ? null : "is-active"
+                location.location.pathname !== "/aio/comp" ? null : "is-active"
               }
             >
               <NavLink to="/comp">
