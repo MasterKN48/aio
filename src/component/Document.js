@@ -15,7 +15,7 @@ import {
 const Document = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState(["PDF", "DOCX", "PPT", "TXT", "HTML"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PDF", "PPT", "DOCX"]);
+  const [to, setTo] = useState(["PDF", "DOCX"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -142,7 +142,8 @@ const Document = () => {
         </div>
       </div>
       <p style={{ color: "red" }}>
-        *Under Construction: Algorithms for Document file conversion*
+        *Under Construction:Txt,html to other work fine,rest are under
+        development*
       </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
