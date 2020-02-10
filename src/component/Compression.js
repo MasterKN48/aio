@@ -96,6 +96,8 @@ const Compression = () => {
       reader.onload = function() {
         const dataURL = reader.result;
         PDFCompressor(dataURL);
+        setSuccess(true);
+        setLoading(false);
       };
     }
   };

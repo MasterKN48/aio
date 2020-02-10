@@ -6,5 +6,6 @@ export const mp3_to_wav = file => {
     //   type: " audio/wav"
     // });
     // console.log(blob);
+    ffmpeg();
   } catch (error) {}
 };

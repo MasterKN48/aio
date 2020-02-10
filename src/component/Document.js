@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { HtmlToPdf } from "./Algorithms/docs/HtmlToPdf";
+import { PDF_To_Other } from "./Algorithms/docs/PDF_To_Other";
+import { doc_to_pdf } from "./Algorithms/docs/DOC_To_PDF";
+import {
+  html_to_other,
+  downloadFromHtml,
+  downloadFromHtml_To_Pdf
+} from "./Algorithms/docs/HTML_To_DOC";
 const Document = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["DOCX", "PPT", "TXT", "HTML", "CSV"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PDF"]);
+  const [fr, setFr] = useState(["PDF", "DOCX", "PPT", "TXT", "HTML"]); // eslint-disable-next-line
+  const [to, setTo] = useState(["PDF", "PPT", "DOCX"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -40,23 +46,32 @@ const Document = () => {
       alert("'To' file type is not selected");
       return;
     }
-    if (type.from === "DOCX") {
-      console.log("object");
-    }
-    if (type.from === "HTML") {
-      console.log("object");
-    }
     setSuccess(false);
     setLoading(true);
+    if (type.from === "PDF") {
+      PDF_To_Other(file);
+      setSuccess(true);
+      setLoading(false);
+    }
+    if (type.from === "DOCX") {
+      doc_to_pdf(file);
+    }
+    if (type.from === "HTML") {
+      html_to_other(file);
+    }
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
-      console.log(file);
-    }, 5000);
+    }, 2000);
   };
   const download = () => {
     if (type.from === "HTML") {
-      HtmlToPdf(file);
+      if (type.to === "DOCX") {
+        downloadFromHtml(file, setSuccess);
+      }
+      if (type.to === "PDF") {
+        downloadFromHtml_To_Pdf(file, setSuccess);
+      }
     }
   };
   return (
@@ -164,7 +179,11 @@ const Document = () => {
             </div>
             <br />
             <div className="container level-item has-centered">
-              <button className="button is-dark is-outlined" onClick={download}>
+              <button
+                className="button is-dark is-outlined"
+                id="dl"
+                onClick={download}
+              >
                 <span className="icon is-small">
                   <i className="fas fa-download"></i>
                 </span>
