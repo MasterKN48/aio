@@ -7,6 +7,7 @@ import Footer from "./component/Footer";
 const Image = lazy(() => import("./component/Image"));
 const Document = lazy(() => import("./component/Document"));
 const Compression = lazy(() => import("./component/Compression"));
+const Music = lazy(() => import("./component/Music"));
 const NotFound = () => (
   <div className="container level has-centered">
     <h1>404</h1>
@@ -47,9 +48,21 @@ const App = location => {
             >
               <NavLink to="/aio/docs">
                 <span className="icon is-small">
-                  <i className="far fa-file-alt" aria-hidden="true"></i>
+                  <i className="fas fa-file-alt" aria-hidden="true"></i>
                 </span>
                 <span>Documents</span>
+              </NavLink>
+            </li>
+            <li
+              className={
+                location.location.pathname !== "/aio/music" ? null : "is-active"
+              }
+            >
+              <NavLink to="/aio/music">
+                <span className="icon is-small">
+                  <i className="fas fa-music"></i>
+                </span>
+                <span>Music</span>
               </NavLink>
             </li>
             <li
@@ -74,9 +87,10 @@ const App = location => {
           }
         >
           <Switch>
-            <Route exact path="/aio/" component={Image} />
+            <Route exact path="/aio" component={Image} />
             <Route path="/aio/docs" component={Document} />
             <Route path="/aio/comp" component={Compression} />
+            <Route path="/aio/music" component={Music} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>

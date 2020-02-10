@@ -25,7 +25,7 @@ export const downloadFromJpg = (name, type, setSuccess) => {
 
   type = type === "svg" ? "svg+xml" : type;
 
-  // converting data uri to blob aken form github gist
+  // converting data uri to blob taken form github gist
   let dataURI = document
     .getElementById("canvas")
     .toDataURL("image/" + type, 0.8);

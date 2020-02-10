@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { JpgToAllConvertor, downloadFromJpg } from "./Algorithms/JPG_To_ALL";
-import { PngToAllConvertor, downloadFromPng } from "./Algorithms/PNG_To_ALL";
-import { WebpToAllConvertor, downloadFromWebp } from "./Algorithms/WEBP_To_ALL";
-import { SvgToAllConvertor, downloadFromSvg } from "./Algorithms/SVG_To_ALL";
-import { GifToAllConvertor, downloadFromGif } from "./Algorithms/GIF_To_ALL";
-const Image = () => {
+import { mp3_to_wav } from "./Algorithms/music/MP3_To_WAV";
+
+const Music = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["PNG", "JPEG", "WEBP", "SVG", "GIF"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PNG", "JPEG", "ICO", "WEBP", "SVG"]);
+  const [fr, setFr] = useState(["MP3", "WAV"]); // eslint-disable-next-line
+  const [to, setTo] = useState(["WAV", "MP3"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -45,79 +42,27 @@ const Image = () => {
       alert("'To' file type is not selected");
       return false;
     }
-    if (type.from.toLowerCase() !== file.name.split(".").pop()) {
-      if (type.from === "JPG") {
-        if (
-          file.name.split(".").pop() !== "jpg" &&
-          file.name.split(".").pop() !== "jpeg"
-        ) {
-          alert(
-            "Mismatch in selected file type: " +
-              file.name.split(".").pop() +
-              " with 'From' Select box: " +
-              type.from.toLowerCase()
-          );
-          return false;
-        }
-      } else {
-        alert(
-          "Mismatch in selected file type: " +
-            file.name.split(".").pop() +
-            " with 'From' Select box: " +
-            type.from.toLowerCase()
-        );
-        return false;
-      }
-    }
     if (type.from === type.to) {
       alert("'From' and 'To' is same!");
       return false;
     }
-    // if (type.from === "GIF" && type.to === "SVG") {
-    //   alert("Not Possible Now");
-    //   return false;
-    // }
     setSuccess(false);
     setLoading(true);
     // selecting algorithms accordingly
-    if (type.from === "JPEG") {
+    if (type.from === "MP3") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function() {
         const dataURL = reader.result;
-        JpgToAllConvertor(dataURL);
+        mp3_to_wav(dataURL);
       };
     }
-    if (type.from === "PNG") {
+    if (type.from === "WAV") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function() {
-        const dataURL = reader.result;
-        PngToAllConvertor(dataURL);
-      };
-    }
-    if (type.from === "WEBP") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        WebpToAllConvertor(dataURL);
-      };
-    }
-    if (type.from === "SVG") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        SvgToAllConvertor(dataURL);
-      };
-    }
-    if (type.from === "GIF") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        GifToAllConvertor(dataURL);
+        //const dataURL = reader.result;
+        // OggToMp3Convertor(dataURL);
       };
     }
     // showing loading just for fun
@@ -129,55 +74,18 @@ const Image = () => {
 
   //handle download accordingly
   const download = () => {
-    if (type.from === "JPEG") {
+    if (type.from === "MP3") {
       let s;
-      if (type.to === "SVG") {
-        s = "SVG";
+      if (type.to === "WAV") {
+        s = "MP3";
+      }
+      if (type.to === "WAV") {
+        s = "WAV";
       } else {
         s = type.to;
       }
-
-      downloadFromJpg(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
-    }
-    if (type.from === "PNG") {
-      let s;
-      if (type.to === "JPEG") {
-        s = "JPEG";
-      }
-      if (type.to === "SVG") {
-        s = "SVG+XML";
-      } else {
-        s = type.to;
-      }
-      downloadFromPng(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
-    }
-    if (type.from === "WEBP") {
-      let s;
-      if (type.to === "JPEG") {
-        s = "JPEG";
-      }
-      if (type.to === "SVG") {
-        s = "SVG+XML";
-      } else {
-        s = type.to;
-      }
-      downloadFromWebp(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
-    }
-    if (type.from === "SVG") {
-      let s = type.to === "JPEG" ? "JPEG" : type.to;
-      downloadFromSvg(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
-    }
-    if (type.from === "GIF") {
-      let s;
-      if (type.to === "JPEG") {
-        s = "JPEG";
-      }
-      if (type.to === "SVG") {
-        s = "SVG+XML";
-      } else {
-        s = type.to;
-      }
-      downloadFromGif(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
+      console.log(s.toLowerCase());
+      //downloadFromPng(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
   };
   return (
@@ -230,11 +138,7 @@ const Image = () => {
           </div>
         </div>
       </div>
-      <p style={{ color: "red" }}>
-        *Only JPG,PNG,WEBP,SVG to other is working now, rest are under
-        construction.But all to ico,svg has a bit problem about mime type but
-        working fine*
-      </p>
+
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
           <div className="file is-dark has-name is-boxed">
@@ -311,4 +215,4 @@ const Image = () => {
   );
 };
 
-export default Image;
+export default Music;

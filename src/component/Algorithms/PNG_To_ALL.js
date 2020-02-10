@@ -24,10 +24,11 @@ export const downloadFromPng = (name, type, setSuccess) => {
   document.getElementById("downloader").download = name + "." + type;
   // converting data uri to blob aken form github gist
   type = type === "svg" ? "svg+xml" : type;
+
   let dataURI = document
     .getElementById("canvas")
     .toDataURL("image/" + type, 0.9);
-
+  console.log(dataURI);
   let byteString = atob(dataURI.split(",")[1]);
 
   // separate out the mime component
@@ -35,7 +36,7 @@ export const downloadFromPng = (name, type, setSuccess) => {
     .split(",")[0]
     .split(":")[1]
     .split(";")[0];
-
+  console.log(mimeString);
   // write the bytes of the string to an ArrayBuffer
   let arrayBuffer = new ArrayBuffer(byteString.length);
   let _ia = new Uint8Array(arrayBuffer);
