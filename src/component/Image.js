@@ -1,9 +1,24 @@
 import React, { useState } from "react";
-import { JpgToAllConvertor, downloadFromJpg } from "./Algorithms/JPG_To_ALL";
-import { PngToAllConvertor, downloadFromPng } from "./Algorithms/PNG_To_ALL";
-import { WebpToAllConvertor, downloadFromWebp } from "./Algorithms/WEBP_To_ALL";
-import { SvgToAllConvertor, downloadFromSvg } from "./Algorithms/SVG_To_ALL";
-import { GifToAllConvertor, downloadFromGif } from "./Algorithms/GIF_To_ALL";
+import {
+  JpgToAllConvertor,
+  downloadFromJpg
+} from "./Algorithms/image/JPG_To_ALL";
+import {
+  PngToAllConvertor,
+  downloadFromPng
+} from "./Algorithms/image/PNG_To_ALL";
+import {
+  WebpToAllConvertor,
+  downloadFromWebp
+} from "./Algorithms/image/WEBP_To_ALL";
+import {
+  SvgToAllConvertor,
+  downloadFromSvg
+} from "./Algorithms/image/SVG_To_ALL";
+import {
+  GifToAllConvertor,
+  downloadFromGif
+} from "./Algorithms/image/GIF_To_ALL";
 const Image = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState(["PNG", "JPEG", "WEBP", "SVG", "GIF"]); // eslint-disable-next-line

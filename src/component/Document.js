@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HtmlToPdf } from "./Algorithms/HtmlToPdf";
+import { HtmlToPdf } from "./Algorithms/docs/HtmlToPdf";
 const Document = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState(["DOCX", "PPT", "TXT", "HTML", "CSV"]); // eslint-disable-next-line

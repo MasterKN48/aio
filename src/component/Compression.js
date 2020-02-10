@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 // import { JPGCompressor, downloadJPG } from "./Algorithms/JPGCompressor";
 // import { PNGCompressor, downloadPNG } from "./Algorithms/PNGCompressor";
-import { downloadWEBP, WEBPCompressor } from "./Algorithms/WEBPCompressor";
-import { PDFCompressor, downloadPDF } from "./Algorithms/PDFCompressor";
-import { PNG_JPG_Compressor } from "./Algorithms/PNG_JPG_Compressor";
+import {
+  downloadWEBP,
+  WEBPCompressor
+} from "./Algorithms/compression/WEBPCompressor";
+import {
+  PDFCompressor,
+  downloadPDF
+} from "./Algorithms/compression/PDFCompressor";
+import { PNG_JPG_Compressor } from "./Algorithms/compression/PNG_JPG_Compressor";
 const Compression = () => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
