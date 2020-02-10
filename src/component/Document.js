@@ -198,7 +198,7 @@ const Document = () => {
           </div>
         )}
       </div>
-      <div id="hidden" style={{ display: "none" }}></div>
+
       <div className="has-centered">
         {success ? (
           <div className="has-centered">
