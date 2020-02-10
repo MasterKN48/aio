@@ -3,9 +3,15 @@ import { PDF_To_Other } from "./Algorithms/docs/PDF_To_Other";
 import { doc_to_pdf } from "./Algorithms/docs/DOC_To_PDF";
 import {
   html_to_other,
-  downloadFromHtml,
+  downloadFromHtml_To_Doc,
   downloadFromHtml_To_Pdf
-} from "./Algorithms/docs/HTML_To_DOC";
+} from "./Algorithms/docs/HTML_To_Other";
+import {
+  txt_to_other,
+  downloadFromTxt_To_Doc,
+  downloadFromTxt_To_Pdf
+} from "./Algorithms/docs/TXT_To_Other";
+
 const Document = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState(["PDF", "DOCX", "PPT", "TXT", "HTML"]); // eslint-disable-next-line
@@ -59,6 +65,9 @@ const Document = () => {
     if (type.from === "HTML") {
       html_to_other(file);
     }
+    if (type.from === "TXT") {
+      txt_to_other(file);
+    }
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
@@ -67,10 +76,18 @@ const Document = () => {
   const download = () => {
     if (type.from === "HTML") {
       if (type.to === "DOCX") {
-        downloadFromHtml(file, setSuccess);
+        downloadFromHtml_To_Doc(file, setSuccess);
       }
       if (type.to === "PDF") {
         downloadFromHtml_To_Pdf(file, setSuccess);
+      }
+    }
+    if (type.from === "TXT") {
+      if (type.to === "DOCX") {
+        downloadFromTxt_To_Doc(file, setSuccess);
+      }
+      if (type.to === "PDF") {
+        downloadFromTxt_To_Pdf(file, setSuccess);
       }
     }
   };

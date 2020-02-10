@@ -1,8 +1,8 @@
-export const html_to_other = file => {
+export const txt_to_other = file => {
   console.log("time");
 };
 
-export const downloadFromHtml = (file, setSuccess) => {
+export const downloadFromTxt_To_Doc = (file, setSuccess) => {
   let reader = new FileReader();
   reader.readAsText(file);
   reader.onloadend = () => {
@@ -17,12 +17,11 @@ export const downloadFromHtml = (file, setSuccess) => {
     fileDownload.download = file.name.split(".")[0] + ".doc";
     fileDownload.click();
     document.body.removeChild(fileDownload);
-
     setSuccess(false);
   };
 };
 
-export const downloadFromHtml_To_Pdf = (file, setSuccess) => {
+export const downloadFromTxt_To_Pdf = (file, setSuccess) => {
   let reader = new FileReader();
   reader.readAsText(file);
   reader.onloadend = () => {
