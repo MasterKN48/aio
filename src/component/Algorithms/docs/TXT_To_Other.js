@@ -1,3 +1,11 @@
+/**
+ * 1-> Read file as text
+ * 2-> create new data file
+ * 2.1-> append data:application/vnd.ms-word;charset=utf-8, with text by using
+ *       encodeURIComponent(text)
+ * 2.2-> for pdf data:application/pdf;charset=utf-8,
+ * 2.3-> create element <a></a> and put href as new data to download
+ */
 export const txt_to_other = file => {
   console.log("time");
 };

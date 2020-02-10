@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { PDF_To_Other } from "./Algorithms/docs/PDF_To_Other";
-import { doc_to_pdf } from "./Algorithms/docs/DOC_To_PDF";
+import {
+  download_doc_to_pdf,
+  doc_to_other
+} from "./Algorithms/docs/DOC_To_PDF";
 import {
   html_to_other,
   downloadFromHtml_To_Doc,
@@ -60,7 +63,8 @@ const Document = () => {
       setLoading(false);
     }
     if (type.from === "DOCX") {
-      doc_to_pdf(file);
+      //download_doc_to_pdf(file, setSuccess);
+      doc_to_other(file, setSuccess);
     }
     if (type.from === "HTML") {
       html_to_other(file);
@@ -88,6 +92,11 @@ const Document = () => {
       }
       if (type.to === "PDF") {
         downloadFromTxt_To_Pdf(file, setSuccess);
+      }
+    }
+    if (type.from === "DOCX") {
+      if (type.to === "PDF") {
+        download_doc_to_pdf(file, setSuccess);
       }
     }
   };
@@ -189,6 +198,7 @@ const Document = () => {
           </div>
         )}
       </div>
+      <div id="hidden" style={{ display: "none" }}></div>
       <div className="has-centered">
         {success ? (
           <div className="has-centered">
