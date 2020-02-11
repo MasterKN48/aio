@@ -162,7 +162,7 @@ const Document = () => {
                 className="file-input"
                 type="file"
                 name="image"
-                accept="image/*"
+                accept="*.docx,*.pdf,*.html,*.txt,*.ppt"
                 onChange={showName}
               />
               <span className="file-cta">
