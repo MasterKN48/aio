@@ -58,11 +58,21 @@ const Document = () => {
     setSuccess(false);
     setLoading(true);
     if (type.from === "PDF") {
+      if (type.to === "PDF") {
+        alert("To and from type is same");
+        setLoading(false);
+        return;
+      }
       PDF_To_Other(file);
       setSuccess(true);
       setLoading(false);
     }
     if (type.from === "DOCX") {
+      if (type.to === "DOCX") {
+        alert("To and from type is same");
+        setLoading(false);
+        return;
+      }
       //download_doc_to_pdf(file, setSuccess);
       doc_to_other(file, setSuccess);
     }
