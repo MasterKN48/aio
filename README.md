@@ -3,7 +3,7 @@
 This project aims to create a pwa app for converting file types related to images,document only using client side js.There for no privacy conscern for end user.This platform do all conversion task at your system only,it has no server stuff for any logging or file storing purpose.
 
 ([Project Link](https://github.com/MasterKN48/aio))
-([Demo](https://masterkn48.github.io/))
+([Demo](https://masterkn48.github.io/aio))
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
