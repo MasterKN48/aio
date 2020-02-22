@@ -245,11 +245,6 @@ const Image = () => {
           </div>
         </div>
       </div>
-      <p style={{ color: "red" }}>
-        *Only JPG,PNG,WEBP,SVG to other is working now, rest are under
-        construction.But all to ico,svg has a bit problem about mime type but
-        working fine*
-      </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
           <div className="file is-dark has-name is-boxed">
