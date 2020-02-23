@@ -21,22 +21,23 @@ export const PngToAllConvertor = dataURL => {
 };
 export const downloadFromPng = (name, type, setSuccess) => {
   //file name as argument
-  document.getElementById("downloader").download = name + "." + type;
-  // converting data uri to blob aken form github gist
+  let format = type === "svg+xml" ? "svg" : type;
+  document.getElementById("downloader").download = name + "." + format;
+  // converting data uri to blob taken form github gist
   type = type === "svg" ? "svg+xml" : type;
 
   let dataURI = document
     .getElementById("canvas")
     .toDataURL("image/" + type, 0.9);
-  //   console.log(dataURI);
+  //console.log(dataURI);
   let byteString = atob(dataURI.split(",")[1]);
 
   // separate out the mime component
-  let mimeString = dataURI
-    .split(",")[0]
-    .split(":")[1]
-    .split(";")[0];
-  console.log(mimeString);
+  //   let mimeString = dataURI
+  //     .split(",")[0]
+  //     .split(":")[1]
+  //     .split(";")[0];
+  //   console.log(mimeString);
   // write the bytes of the string to an ArrayBuffer
   let arrayBuffer = new ArrayBuffer(byteString.length);
   let _ia = new Uint8Array(arrayBuffer);
@@ -45,7 +46,8 @@ export const downloadFromPng = (name, type, setSuccess) => {
   }
 
   let dataView = new DataView(arrayBuffer);
-  let blob = new Blob([dataView], { type: mimeString });
+  let blob = new Blob([dataView], { type: "image/" + type });
+  //console.log(blob);
   document.getElementById("downloader").href = URL.createObjectURL(blob);
   setSuccess(false);
 };

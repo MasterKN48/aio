@@ -21,7 +21,8 @@ export const WebpToAllConvertor = dataURL => {
 };
 export const downloadFromWebp = (name, type, setSuccess) => {
   //file name as argument
-  document.getElementById("downloader").download = name + "." + type;
+  let format = type === "svg+xml" ? "svg" : type;
+  document.getElementById("downloader").download = name + "." + format;
   // converting data uri to blob aken form github gist
   let dataURI = document.getElementById("canvas").toDataURL("image/" + type, 1);
 
@@ -41,7 +42,7 @@ export const downloadFromWebp = (name, type, setSuccess) => {
   }
 
   let dataView = new DataView(arrayBuffer);
-  let blob = new Blob([dataView], { type: mimeString });
+  let blob = new Blob([dataView], { type: "image/" + type });
   document.getElementById("downloader").href = URL.createObjectURL(blob);
   setSuccess(false);
 };
