@@ -21,7 +21,8 @@ export const JpgToAllConvertor = dataURL => {
 };
 export const downloadFromJpg = (name, type, setSuccess) => {
   //file name as argument
-  document.getElementById("downloader").download = name + "." + type;
+  let format = type === "svg+xml" ? "svg" : type;
+  document.getElementById("downloader").download = name + "." + format;
 
   type = type === "svg" ? "svg+xml" : type;
 
@@ -46,7 +47,7 @@ export const downloadFromJpg = (name, type, setSuccess) => {
   }
 
   let dataView = new DataView(arrayBuffer);
-  let blob = new Blob([dataView], { type: mimeString });
+  let blob = new Blob([dataView], { type: "image/" + type });
   document.getElementById("downloader").href = URL.createObjectURL(blob);
   setSuccess(false);
 };

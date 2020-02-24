@@ -60,30 +60,7 @@ const Image = () => {
       alert("'To' file type is not selected");
       return false;
     }
-    if (type.from.toLowerCase() !== file.name.split(".").pop()) {
-      if (type.from === "JPG") {
-        if (
-          file.name.split(".").pop() !== "jpg" &&
-          file.name.split(".").pop() !== "jpeg"
-        ) {
-          alert(
-            "Mismatch in selected file type: " +
-              file.name.split(".").pop() +
-              " with 'From' Select box: " +
-              type.from.toLowerCase()
-          );
-          return false;
-        }
-      } else {
-        alert(
-          "Mismatch in selected file type: " +
-            file.name.split(".").pop() +
-            " with 'From' Select box: " +
-            type.from.toLowerCase()
-        );
-        return false;
-      }
-    }
+
     if (type.from === type.to) {
       alert("'From' and 'To' is same!");
       return false;
