@@ -1,0 +1,30 @@
+function encodeWAV(samples) {
+
+  var buffer = new ArrayBuffer(44 + samples.length * 2);
+  var view = new DataView(buffer);
+
+  /* ... various writing methods */
+
+  return { wavdata: new Blob([buffer], { type: "audio/wav" }), mp2data: ffmpeg_convert(buffer) };
+}
+
+function ffmpeg_convert(buffer) {
+    console.log("starting mp2 conversion");
+    var args = "-i input -f mp2 output.mp2";
+    var results = ffmpeg_run({
+        arguments: args.split(" "),
+        files: [
+          {
+              data: new Uint8Array(buffer),
+              "name": "input"
+          }
+        ]
+    });
+    if (results) {
+        var file = results[0];
+        console.log("File recieved", file.name, file.data);
+        return new Blob([file.data], { type: "audio/mpeg" });
+    }
+    return null;
+}
+
