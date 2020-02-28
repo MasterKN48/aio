@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { mp3_to_wav } from "./Algorithms/music/MP3_To_WAV";
+import { wav_to_mp3 } from "./Algorithms/music/WAV_To_MP3";
 
 const Music = () => {
   // eslint-disable-next-line
@@ -78,6 +79,17 @@ const Music = () => {
           const dataURL = reader.result;
 
           mp3_to_wav(dataURL, file.name.split(".")[0], setSuccess);
+        };
+      }
+    }
+    if (type.from === "WAV") {
+      if (type.to === "MP3") {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function() {
+          const dataURL = reader.result;
+
+          wav_to_mp3(dataURL, file.name.split(".")[0], setSuccess);
         };
       }
     }
