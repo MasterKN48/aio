@@ -29,7 +29,7 @@ export const downloadFromPng = (name, type, setSuccess) => {
   let dataURI = document
     .getElementById("canvas")
     .toDataURL("image/" + type, 0.9);
-  //   console.log(dataURI);
+  //console.log(dataURI);
   let byteString = atob(dataURI.split(",")[1]);
 
   // separate out the mime component
