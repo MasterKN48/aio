@@ -62,7 +62,7 @@ const App = location => {
                 <span className="icon is-small">
                   <i className="fas fa-music"></i>
                 </span>
-                <span>Music</span>
+                <span>Audio</span>
               </NavLink>
             </li>
             <li

@@ -50,12 +50,12 @@ const Music = () => {
     setLoading(true);
     // selecting algorithms accordingly
     if (type.from === "MP3") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        mp3_to_wav(dataURL);
-      };
+      //   let reader = new FileReader();
+      //   reader.readAsDataURL(file);
+      //   reader.onload = function() {
+      //     const dataURL = reader.result;
+      //     mp3_to_wav(dataURL);
+      //   };
     }
     if (type.from === "WAV") {
       let reader = new FileReader();
@@ -75,16 +75,15 @@ const Music = () => {
   //handle download accordingly
   const download = () => {
     if (type.from === "MP3") {
-      let s;
       if (type.to === "WAV") {
-        s = "MP3";
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function() {
+          const dataURL = reader.result;
+
+          mp3_to_wav(dataURL, file.name.split(".")[0], setSuccess);
+        };
       }
-      if (type.to === "WAV") {
-        s = "WAV";
-      } else {
-        s = type.to;
-      }
-      console.log(s.toLowerCase());
       //downloadFromPng(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
   };
