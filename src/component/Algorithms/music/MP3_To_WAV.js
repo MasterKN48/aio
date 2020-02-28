@@ -1,6 +1,5 @@
 var toWav = require("audiobuffer-to-wav");
 var xhr = require("xhr");
-var context = new AudioContext();
 
 var audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
