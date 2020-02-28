@@ -1,13 +1,21 @@
 # AIO : Platform for file type conversion
 
-##### under developement
+##### under development
 
-This project aims to create a pwa app for converting file types related to images,document,music,file compression only using client side js.There for no privacy concerns for end user.This platform do all conversion task at your system only,it has no server stuff for any logging or file storing purpose.
+This project aims to create a pwa app for converting file types related to images,document,music,file compression only using client side js. There for no privacy concerns for end user. This platform do all conversion task at your system only,it has no server stuff for any logging or file storing purpose.
 
 ([Project Link](https://github.com/MasterKN48/aio))
 ([Demo](https://masterkn48.github.io/))
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+| References: | From:                                      |
+| ----------- | ------------------------------------------ |
+| mp3_to_Wav  | https://github.com/Jam3/audiobuffer-to-wav |
+|             |                                            |
+|             |                                            |
+
+
 
 ## Available Scripts
 
