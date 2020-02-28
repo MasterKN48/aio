@@ -3,7 +3,7 @@ import { mp3_to_wav } from "./Algorithms/music/MP3_To_WAV";
 
 const Music = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["MP3", "WAV"]); // eslint-disable-next-line
+  const [fr, setFr] = useState(["MP3", "OGG", "WAV"]); // eslint-disable-next-line
   const [to, setTo] = useState(["WAV", "MP3"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -49,13 +49,8 @@ const Music = () => {
     setSuccess(false);
     setLoading(true);
     // selecting algorithms accordingly
-    if (type.from === "MP3") {
-      //   let reader = new FileReader();
-      //   reader.readAsDataURL(file);
-      //   reader.onload = function() {
-      //     const dataURL = reader.result;
-      //     mp3_to_wav(dataURL);
-      //   };
+    if (type.from === "MP3" || type.from === "OGG") {
+      //do timepass just show loading
     }
     if (type.from === "WAV") {
       let reader = new FileReader();
@@ -74,7 +69,8 @@ const Music = () => {
 
   //handle download accordingly
   const download = () => {
-    if (type.from === "MP3") {
+    // use to convert mp3,ogg to wav
+    if (type.from === "MP3" || type.from === "OGG") {
       if (type.to === "WAV") {
         let reader = new FileReader();
         reader.readAsDataURL(file);
@@ -84,7 +80,6 @@ const Music = () => {
           mp3_to_wav(dataURL, file.name.split(".")[0], setSuccess);
         };
       }
-      //downloadFromPng(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
     }
   };
   return (
