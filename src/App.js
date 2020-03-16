@@ -8,6 +8,8 @@ const Image = lazy(() => import("./component/Image"));
 const Document = lazy(() => import("./component/Document"));
 const Compression = lazy(() => import("./component/Compression"));
 const Music = lazy(() => import("./component/Music"));
+const CompressedFile = lazy(() => import("./component/CompressedFile"));
+
 const NotFound = () => (
   <div className="container level has-centered">
     <h1>404</h1>
@@ -67,6 +69,18 @@ const App = location => {
             </li>
             <li
               className={
+                location.location.pathname !== "/aio/compf" ? null : "is-active"
+              }
+            >
+              <NavLink to="/aio/compf">
+                <span className="icon is-small">
+                  <i className="fas fa-file-archive"></i>
+                </span>
+                <span>CompressedFile</span>
+              </NavLink>
+            </li>
+            <li
+              className={
                 location.location.pathname !== "/aio/comp" ? null : "is-active"
               }
             >
@@ -90,6 +104,7 @@ const App = location => {
             <Route exact path="/aio" component={Image} />
             <Route path="/aio/docs" component={Document} />
             <Route path="/aio/comp" component={Compression} />
+            <Route path="/aio/compf" component={CompressedFile} />
             <Route path="/aio/music" component={Music} />
             <Route component={NotFound} />
           </Switch>
