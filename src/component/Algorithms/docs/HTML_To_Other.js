@@ -42,7 +42,7 @@ export const downloadFromHtml_To_Doc = (file, setSuccess) => {
     var fileDownload = document.createElement("a");
     document.body.appendChild(fileDownload);
     fileDownload.href = source;
-    fileDownload.download = file.name.split(".")[0] + ".doc";
+    fileDownload.download = file.name.split(".")[0] + ".docx";
     fileDownload.click();
     document.body.removeChild(fileDownload);
     setSuccess(false);
