@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { PDF_To_Other } from "./Algorithms/docs/PDF_To_Other";
 import {
   download_doc_to_pdf,
-  doc_to_other
+  doc_to_other,
+  download_doc_to_md
 } from "./Algorithms/docs/DOC_To_PDF";
 import {
   html_to_other,
@@ -13,12 +14,15 @@ import {
 import {
   txt_to_other,
   downloadFromTxt_To_Doc,
-  downloadFromTxt_To_Pdf
+  downloadFromTxt_To_Pdf,
+  downloadFromTxt_To_Md
 } from "./Algorithms/docs/TXT_To_Other";
+
+import { downloadMd_to_Pdf } from "./Algorithms/docs/MD_To_Other";
 
 const Document = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["PDF", "DOCX", "TXT", "HTML", "MD"]); // eslint-disable-next-line
+  const [fr, setFr] = useState(["DOCX", "TXT", "HTML", "MD"]); // eslint-disable-next-line
   const [to, setTo] = useState(["PDF", "DOCX", "MD"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -83,6 +87,9 @@ const Document = () => {
     if (type.from === "TXT") {
       txt_to_other(file);
     }
+    if (type.from === "MD") {
+      console.log("time");
+    }
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
@@ -107,10 +114,21 @@ const Document = () => {
       if (type.to === "PDF") {
         downloadFromTxt_To_Pdf(file, setSuccess);
       }
+      if (type.to === "MD") {
+        downloadFromTxt_To_Md(file, setSuccess);
+      }
     }
     if (type.from === "DOCX") {
       if (type.to === "PDF") {
         download_doc_to_pdf(file, setSuccess);
+      }
+      if (type.to === "MD") {
+        download_doc_to_md(file, setSuccess);
+      }
+    }
+    if (type.from === "MD") {
+      if (type.to === "PDF") {
+        downloadMd_to_Pdf(file, setSuccess);
       }
     }
   };

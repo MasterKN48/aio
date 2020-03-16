@@ -47,3 +47,22 @@ export const downloadFromTxt_To_Pdf = (file, setSuccess) => {
     setSuccess(false);
   };
 };
+
+export const downloadFromTxt_To_Md = (file, setSuccess) => {
+  let reader = new FileReader();
+  reader.readAsText(file);
+  reader.onloadend = () => {
+    let dataURI = reader.result;
+    var sourceHTML = dataURI + " \n**By AIO**";
+    var source =
+      "data:text/markdown;charset=utf-8," + encodeURIComponent(sourceHTML);
+    var fileDownload = document.createElement("a");
+    document.body.appendChild(fileDownload);
+    fileDownload.href = source;
+    fileDownload.download = file.name.split(".")[0] + ".md";
+    fileDownload.click();
+    document.body.removeChild(fileDownload);
+
+    setSuccess(false);
+  };
+};
