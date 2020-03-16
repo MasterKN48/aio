@@ -7,7 +7,8 @@ import {
 import {
   html_to_other,
   downloadFromHtml_To_Doc,
-  downloadFromHtml_To_Pdf
+  downloadFromHtml_To_Pdf,
+  downloadFromHtml_To_Md
 } from "./Algorithms/docs/HTML_To_Other";
 import {
   txt_to_other,
@@ -17,8 +18,8 @@ import {
 
 const Document = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["PDF", "DOCX", "PPT", "TXT", "HTML"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PDF", "DOCX"]);
+  const [fr, setFr] = useState(["PDF", "DOCX", "TXT", "HTML", "MD"]); // eslint-disable-next-line
+  const [to, setTo] = useState(["PDF", "DOCX", "MD"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -94,6 +95,9 @@ const Document = () => {
       }
       if (type.to === "PDF") {
         downloadFromHtml_To_Pdf(file, setSuccess);
+      }
+      if (type.to === "MD") {
+        downloadFromHtml_To_Md(file, setSuccess);
       }
     }
     if (type.from === "TXT") {

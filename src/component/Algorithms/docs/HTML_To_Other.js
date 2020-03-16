@@ -6,8 +6,38 @@
  * 2.2-> for pdf data:application/pdf;charset=utf-8,
  * 2.3-> create element <a></a> and put href as new data to download
  */
+
+import html2md from "html-to-md";
 export const html_to_other = file => {
   console.log("time");
+};
+
+export const downloadFromHtml_To_Md = (file, setSuccess) => {
+  let reader = new FileReader();
+  reader.readAsText(file);
+  reader.onloadend = () => {
+    let dataURI = reader.result;
+    let md = html2md(dataURI, {
+      ignoreTags: [
+        "head",
+        "script",
+        "style",
+        "header",
+        "button",
+        "section",
+        "article",
+        "footer"
+      ]
+    });
+    var source = "data:text/markdown," + encodeURIComponent(md);
+    var fileDownload = document.createElement("a");
+    document.body.appendChild(fileDownload);
+    fileDownload.href = source;
+    fileDownload.download = file.name.split(".")[0] + ".md";
+    fileDownload.click();
+    document.body.removeChild(fileDownload);
+    setSuccess(false);
+  };
 };
 
 export const downloadFromHtml_To_Doc = (file, setSuccess) => {
