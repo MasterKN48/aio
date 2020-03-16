@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 import {
   download_doc_to_pdf,
-  doc_to_other,
-  download_doc_to_md
+  doc_to_other, // may use in future
+  download_doc_to_md,
+  download_doc_to_html
 } from "./Algorithms/docs/DOC_To_Other";
 import {
   html_to_other,
@@ -123,6 +124,9 @@ const Document = () => {
       }
       if (type.to === "MD") {
         download_doc_to_md(file, setSuccess);
+      }
+      if (type.to === "HTML") {
+        download_doc_to_html(file, setSuccess);
       }
     }
     if (type.from === "MD") {

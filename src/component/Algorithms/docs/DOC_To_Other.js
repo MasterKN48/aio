@@ -53,3 +53,28 @@ export const download_doc_to_md = (file, setSuccess) => {
       .done();
   };
 };
+
+export const download_doc_to_html = (file, setSuccess) => {
+  var mammoth = require("mammoth");
+  let reader = new FileReader();
+  reader.readAsArrayBuffer(file);
+  reader.onloadend = () => {
+    let arrayBuffer = reader.result;
+    mammoth
+      .convertToHtml({ arrayBuffer: arrayBuffer })
+      .then(function(result) {
+        var data = result.value;
+        var sourceHTML = data;
+        var source =
+          "data:text/html;charset=utf-8," + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = file.name.split(".")[0] + ".html";
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+        setSuccess(false);
+      })
+      .done();
+  };
+};
