@@ -20,7 +20,8 @@ import {
 
 import {
   downloadMd_to_Pdf,
-  downloadMd_to_Html
+  downloadMd_to_Html,
+  downloadMd_to_Docx
 } from "./Algorithms/docs/MD_To_Other";
 
 const Document = () => {
@@ -135,6 +136,9 @@ const Document = () => {
       }
       if (type.to === "HTML") {
         downloadMd_to_Html(file, setSuccess);
+      }
+      if (type.to === "DOCX") {
+        downloadMd_to_Docx(file, setSuccess);
       }
     }
   };

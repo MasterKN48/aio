@@ -29,3 +29,22 @@ export const downloadMd_to_Html = (file, setSuccess) => {
     setSuccess(false);
   };
 };
+
+export const downloadMd_to_Docx = (file, setSuccess) => {
+  let reader = new FileReader();
+  reader.readAsText(file);
+  reader.onloadend = () => {
+    let dataURI = reader.result;
+    var sourceHTML = dataURI;
+    var source =
+      "data:application/vnd.ms-word;charset=utf-8," +
+      encodeURIComponent(sourceHTML);
+    var fileDownload = document.createElement("a");
+    document.body.appendChild(fileDownload);
+    fileDownload.href = source;
+    fileDownload.download = file.name.split(".")[0] + ".docx";
+    fileDownload.click();
+    document.body.removeChild(fileDownload);
+    setSuccess(false);
+  };
+};
