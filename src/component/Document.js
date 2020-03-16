@@ -18,12 +18,15 @@ import {
   downloadFromTxt_To_Md
 } from "./Algorithms/docs/TXT_To_Other";
 
-import { downloadMd_to_Pdf } from "./Algorithms/docs/MD_To_Other";
+import {
+  downloadMd_to_Pdf,
+  downloadMd_to_Html
+} from "./Algorithms/docs/MD_To_Other";
 
 const Document = () => {
   // eslint-disable-next-line
   const [fr, setFr] = useState(["DOCX", "TXT", "HTML", "MD"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["PDF", "DOCX", "MD"]);
+  const [to, setTo] = useState(["PDF", "DOCX", "MD", "HTML"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
@@ -129,6 +132,9 @@ const Document = () => {
     if (type.from === "MD") {
       if (type.to === "PDF") {
         downloadMd_to_Pdf(file, setSuccess);
+      }
+      if (type.to === "HTML") {
+        downloadMd_to_Html(file, setSuccess);
       }
     }
   };

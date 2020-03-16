@@ -7,7 +7,6 @@
  * 2.3-> create element <a></a> and put href as new data to download
  */
 
-import html2md from "html-to-md";
 export const html_to_other = file => {
   console.log("time");
 };
@@ -17,18 +16,9 @@ export const downloadFromHtml_To_Md = (file, setSuccess) => {
   reader.readAsText(file);
   reader.onloadend = () => {
     let dataURI = reader.result;
-    let md = html2md(dataURI, {
-      ignoreTags: [
-        "head",
-        "script",
-        "style",
-        "header",
-        "button",
-        "section",
-        "article",
-        "footer"
-      ]
-    });
+    var showdown = require("showdown");
+    var converter = new showdown.Converter();
+    const md = converter.makeMd(dataURI);
     var source = "data:text/markdown," + encodeURIComponent(md);
     var fileDownload = document.createElement("a");
     document.body.appendChild(fileDownload);
