@@ -39,7 +39,7 @@ export const download_doc_to_md = (file, setSuccess) => {
       .then(function(result) {
         var data = result.value;
         var sourceHTML = data;
-        console.log(sourceHTML);
+
         var source =
           "data:text/markdown;charset=utf-8," + encodeURIComponent(sourceHTML);
         var fileDownload = document.createElement("a");
