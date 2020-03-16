@@ -15,7 +15,8 @@ import {
   txt_to_other,
   downloadFromTxt_To_Doc,
   downloadFromTxt_To_Pdf,
-  downloadFromTxt_To_Md
+  downloadFromTxt_To_Md,
+  downloadFromTxt_To_Html
 } from "./Algorithms/docs/TXT_To_Other";
 
 import {
@@ -120,6 +121,9 @@ const Document = () => {
       }
       if (type.to === "MD") {
         downloadFromTxt_To_Md(file, setSuccess);
+      }
+      if (type.to === "HTML") {
+        downloadFromTxt_To_Html(file, setSuccess);
       }
     }
     if (type.from === "DOCX") {

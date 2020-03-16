@@ -66,3 +66,28 @@ export const downloadFromTxt_To_Md = (file, setSuccess) => {
     setSuccess(false);
   };
 };
+export const downloadFromTxt_To_Html = (file, setSuccess) => {
+  let reader = new FileReader();
+  reader.readAsText(file);
+  reader.onloadend = () => {
+    let dataURI = reader.result;
+    var sourceHTML = `<!doctype><html><head>
+    <meta charset="UTF-8">
+    <meta name="description" content="${dataURI.substr(0, 40)}">
+    <meta name="keywords" content="${dataURI.substr(0, 20)}">
+    <meta name="author" content="AIO">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${dataURI.substr(0, 10)}</title>
+    </head><body style="color:#212121;background-color:#fafafa;word-wrap:break-word;margin:10 10 10 10"><div>${dataURI}</div></body></html>`;
+    var source =
+      "data:text/html;charset=utf-8," + encodeURIComponent(sourceHTML);
+    var fileDownload = document.createElement("a");
+    document.body.appendChild(fileDownload);
+    fileDownload.href = source;
+    fileDownload.download = file.name.split(".")[0] + ".html";
+    fileDownload.click();
+    document.body.removeChild(fileDownload);
+
+    setSuccess(false);
+  };
+};
