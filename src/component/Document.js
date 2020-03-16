@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { PDF_To_Other } from "./Algorithms/docs/PDF_To_Other";
+
 import {
   download_doc_to_pdf,
   doc_to_other,
   download_doc_to_md
-} from "./Algorithms/docs/DOC_To_PDF";
+} from "./Algorithms/docs/DOC_To_Other";
 import {
   html_to_other,
   downloadFromHtml_To_Doc,
@@ -67,16 +67,7 @@ const Document = () => {
     }
     setSuccess(false);
     setLoading(true);
-    if (type.from === "PDF") {
-      if (type.to === "PDF") {
-        alert("To and from type is same");
-        setLoading(false);
-        return;
-      }
-      PDF_To_Other(file);
-      setSuccess(true);
-      setLoading(false);
-    }
+
     if (type.from === "DOCX") {
       if (type.to === "DOCX") {
         alert("To and from type is same");
