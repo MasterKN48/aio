@@ -17,7 +17,7 @@ const NotFound = () => (
     <br />
   </div>
 );
-const App = location => {
+const App = (location) => {
   return (
     <section className="container-fluid is-mobile">
       <div className="container">
@@ -67,7 +67,7 @@ const App = location => {
                 <span>Audio</span>
               </NavLink>
             </li>
-            <li
+            {/* <li
               className={
                 location.location.pathname !== "/aio/compf" ? null : "is-active"
               }
@@ -78,7 +78,7 @@ const App = location => {
                 </span>
                 <span>CompressedFile</span>
               </NavLink>
-            </li>
+            </li> */}
             <li
               className={
                 location.location.pathname !== "/aio/comp" ? null : "is-active"

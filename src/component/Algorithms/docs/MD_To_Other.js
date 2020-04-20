@@ -23,7 +23,7 @@ export const downloadMd_to_Html = (file, setSuccess) => {
     var fileDownload = document.createElement("a");
     document.body.appendChild(fileDownload);
     fileDownload.href = source;
-    fileDownload.download = file.name.split(".")[0] + ".pdf";
+    fileDownload.download = file.name.split(".")[0] + ".html";
     fileDownload.click();
     document.body.removeChild(fileDownload);
     setSuccess(false);

@@ -1,4 +1,4 @@
-export const doc_to_other = file => {
+export const doc_to_other = (file) => {
   console.log("object");
 };
 export const download_doc_to_pdf = (file, setSuccess) => {
@@ -9,7 +9,7 @@ export const download_doc_to_pdf = (file, setSuccess) => {
     let arrayBuffer = reader.result;
     mammoth
       .convertToHtml({ arrayBuffer: arrayBuffer })
-      .then(function(result) {
+      .then(function (result) {
         var data = result.value;
         let el = document.createElement("rd");
         el.setAttribute("id", "render");
@@ -19,9 +19,11 @@ export const download_doc_to_pdf = (file, setSuccess) => {
         var mywindow = window.open("", "PRINT", "height=500,width=600");
 
         mywindow.document.write(
-          "<html><head><title>" + file.name.split(".")[0] + "</title>"
+          "<html><head><title>" +
+            file.name.split(".")[0] +
+            "</title><style>img{display: block;margin: 0 auto;} .container{padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;text-align-justify;}</style>"
         );
-        mywindow.document.write("</head><body >");
+        mywindow.document.write("</head><body class='container'>");
         mywindow.document.write(el.innerHTML);
         mywindow.document.write("</body></html>");
 
@@ -29,7 +31,7 @@ export const download_doc_to_pdf = (file, setSuccess) => {
         mywindow.focus(); // necessary for IE >= 10*/
 
         mywindow.print();
-        mywindow.close();
+        //mywindow.close();
         setSuccess(false);
       })
       .done();
@@ -44,7 +46,7 @@ export const download_doc_to_md = (file, setSuccess) => {
     let arrayBuffer = reader.result;
     mammoth
       .convertToMarkdown({ arrayBuffer: arrayBuffer })
-      .then(function(result) {
+      .then(function (result) {
         var data = result.value;
         var sourceHTML = data;
 
@@ -70,7 +72,7 @@ export const download_doc_to_html = (file, setSuccess) => {
     let arrayBuffer = reader.result;
     mammoth
       .convertToHtml({ arrayBuffer: arrayBuffer })
-      .then(function(result) {
+      .then(function (result) {
         var data = result.value;
         var sourceHTML = data;
         var source =

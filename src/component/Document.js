@@ -4,26 +4,26 @@ import {
   download_doc_to_pdf,
   doc_to_other, // may use in future
   download_doc_to_md,
-  download_doc_to_html
+  download_doc_to_html,
 } from "./Algorithms/docs/DOC_To_Other";
 import {
   html_to_other,
   downloadFromHtml_To_Doc,
   downloadFromHtml_To_Pdf,
-  downloadFromHtml_To_Md
+  downloadFromHtml_To_Md,
 } from "./Algorithms/docs/HTML_To_Other";
 import {
   txt_to_other,
   downloadFromTxt_To_Doc,
   downloadFromTxt_To_Pdf,
   downloadFromTxt_To_Md,
-  downloadFromTxt_To_Html
+  downloadFromTxt_To_Html,
 } from "./Algorithms/docs/TXT_To_Other";
 
 import {
   downloadMd_to_Pdf,
   downloadMd_to_Html,
-  downloadMd_to_Docx
+  downloadMd_to_Docx,
 } from "./Algorithms/docs/MD_To_Other";
 
 const Document = () => {
@@ -35,19 +35,19 @@ const Document = () => {
   const [file, setFile] = useState(null);
   const [type, setType] = useState({
     from: "",
-    to: ""
+    to: "",
   });
-  const showName = e => {
+  const showName = (e) => {
     setFile(e.target.files[0]);
   };
-  const fileType = e => {
+  const fileType = (e) => {
     //console.log(e.target.value);
     setType({
       ...type,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
     if (file === null) {
       alert("Please first select file and types");
@@ -131,7 +131,8 @@ const Document = () => {
     }
     if (type.from === "MD") {
       if (type.to === "PDF") {
-        downloadMd_to_Pdf(file, setSuccess);
+        alert("This conversion not working yet!");
+        //downloadMd_to_Pdf(file, setSuccess);
       }
       if (type.to === "HTML") {
         downloadMd_to_Html(file, setSuccess);
@@ -191,10 +192,6 @@ const Document = () => {
           </div>
         </div>
       </div>
-      <p style={{ color: "red" }}>
-        *Under Construction:Txt,html to other work fine,rest are under
-        development*
-      </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
           <div className="file is-dark has-name is-boxed">

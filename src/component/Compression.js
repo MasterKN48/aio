@@ -3,11 +3,11 @@ import React, { useState } from "react";
 // import { PNGCompressor, downloadPNG } from "./Algorithms/PNGCompressor";
 import {
   downloadWEBP,
-  WEBPCompressor
+  WEBPCompressor,
 } from "./Algorithms/compression/WEBPCompressor";
 import {
   PDFCompressor,
-  downloadPDF
+  downloadPDF,
 } from "./Algorithms/compression/PDFCompressor";
 import { PNG_JPG_Compressor } from "./Algorithms/compression/PNG_JPG_Compressor";
 const Compression = () => {
@@ -15,19 +15,19 @@ const Compression = () => {
   const [success, setSuccess] = useState(false);
   const [load, setLoading] = useState(false);
   const [type, setType] = useState({
-    from: ""
+    from: "",
   });
-  const showName = e => {
+  const showName = (e) => {
     setFile(e.target.files[0]);
   };
-  const fileType = e => {
+  const fileType = (e) => {
     //console.log(e.target.value);
     setType({
       ...type,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
     if (file === null) {
       alert("Please first select file and types");
@@ -85,7 +85,7 @@ const Compression = () => {
     if (type.from === "WEBP") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function() {
+      reader.onload = function () {
         const dataURL = reader.result;
         WEBPCompressor(dataURL);
       };
@@ -93,7 +93,7 @@ const Compression = () => {
     if (type.from === "PDF") {
       let reader = new FileReader();
       reader.readAsArrayBuffer(file);
-      reader.onload = function() {
+      reader.onload = function () {
         const dataURL = reader.result;
         PDFCompressor(dataURL);
         setSuccess(true);
@@ -119,7 +119,7 @@ const Compression = () => {
               <div className="select is-rounded">
                 <select name="from" onChange={fileType}>
                   <option defaultValue>Original File Types</option>
-                  <option>PDF</option>
+                  {/* <option>PDF</option> */}
                   <option>PNG</option>
                   <option>JPEG/JPG</option>
                   <option>WEBP</option>
@@ -133,9 +133,6 @@ const Compression = () => {
           </div>
         </div>
       </div>
-      <p style={{ color: "red" }}>
-        *All Compression algo working except pdf compression*
-      </p>
       <div className="level is-mobile">
         <div className="level-item has-text-centered">
           <div className="file is-dark has-name is-boxed">

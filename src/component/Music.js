@@ -4,27 +4,27 @@ import { wav_to_mp3 } from "./Algorithms/music/WAV_To_MP3";
 
 const Music = () => {
   // eslint-disable-next-line
-  const [fr, setFr] = useState(["MP3", "OGG", "WAV"]); // eslint-disable-next-line
-  const [to, setTo] = useState(["WAV", "MP3"]);
+  const [fr, setFr] = useState(["MP3"]); // eslint-disable-next-line
+  const [to, setTo] = useState(["WAV"]);
   const [load, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState(null);
   const [type, setType] = useState({
     from: "",
-    to: ""
+    to: "",
   });
   // const [error, setError] = useState("");
-  const showName = e => {
+  const showName = (e) => {
     setFile(e.target.files[0]);
   };
-  const fileType = e => {
+  const fileType = (e) => {
     //console.log(e.target.value);
     setType({
       ...type,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
     if (file === null) {
       alert("Please first select file and types");
@@ -56,7 +56,7 @@ const Music = () => {
     if (type.from === "WAV") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function() {
+      reader.onload = function () {
         //const dataURL = reader.result;
         // OggToMp3Convertor(dataURL);
       };
@@ -75,7 +75,7 @@ const Music = () => {
       if (type.to === "WAV") {
         let reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = function() {
+        reader.onload = function () {
           const dataURL = reader.result;
 
           mp3_to_wav(dataURL, file.name.split(".")[0], setSuccess);
@@ -86,7 +86,7 @@ const Music = () => {
       if (type.to === "MP3") {
         let reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = function() {
+        reader.onload = function () {
           const dataURL = reader.result;
 
           wav_to_mp3(dataURL, file.name.split(".")[0], setSuccess);
@@ -153,7 +153,7 @@ const Music = () => {
                 className="file-input"
                 type="file"
                 name="image"
-                accept="image/*"
+                accept="audio/*"
                 onChange={showName}
               />
               <span className="file-cta">
