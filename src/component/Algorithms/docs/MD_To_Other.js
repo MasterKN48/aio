@@ -3,11 +3,23 @@ export const downloadMd_to_Pdf = (file, setSuccess) => {
   reader.readAsText(file);
   reader.onloadend = () => {
     let dataURI = reader.result;
-    const convertMd = require("convert-md");
-    convertMd(dataURI, { type: "pdf" }, (err, output) => {
-      if (err) throw err;
-      console.log(output);
-    });
+    var showdown = require("showdown");
+    var converter = new showdown.Converter();
+    const html = converter.makeHtml(dataURI);
+    //console.log(html);
+    let el = document.createElement("rd");
+    el.setAttribute("id", "render");
+
+    el.innerHTML = html;
+    // change render view by use docx render then put print on that div
+    var mywindow = window.open("", "PRINT", "height=500,width=600");
+    mywindow.document.write(el.innerHTML);
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    //mywindow.close(
+    setSuccess(true);
   };
 };
 

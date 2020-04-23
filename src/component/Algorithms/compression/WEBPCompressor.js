@@ -1,27 +1,26 @@
 /**
  * Algorithm for JPG Compressor
  */
-export const WEBPCompressor = dataURL => {
+export const WEBPCompressor = (dataURL, setLoading, setSucess) => {
   var canvas = document.getElementById("jpgtopng");
   var ctx = canvas.getContext("2d");
   var image = new Image();
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
-  image.onload = function() {
+  image.onload = function () {
     ctx.drawImage(image, 0, 0, window.innerWidth, window.innerHeight);
   };
   image.src = dataURL;
-  setTimeout(() => {
-    let dataURI = document
-      .getElementById("jpgtopng")
-      .toDataURL("image/webp", 0.03)
-      .replace(/^data:image\/[^;]/, "data:application/octet-stream");
-    var head = "data:image/webp;base64,";
-    var imgFileSize =
-      Math.round(((dataURI.length - head.length) * 3) / 4) / 1024;
-    document.getElementById("size").innerText =
-      "File Size: " + imgFileSize.toFixed(2) + "kb";
-  }, 3000);
+  setSucess(true);
+  setLoading(false);
+  let dataURI = document
+    .getElementById("jpgtopng")
+    .toDataURL("image/webp", 0.03)
+    .replace(/^data:image\/[^;]/, "data:application/octet-stream");
+  var head = "data:image/webp;base64,";
+  var imgFileSize = Math.round(((dataURI.length - head.length) * 3) / 4) / 1024;
+  document.getElementById("size").innerText =
+    "File Size: " + imgFileSize.toFixed(2) + "kb";
 };
 export const downloadWEBP = (name, setSucess) => {
   //file name as argument
@@ -34,10 +33,7 @@ export const downloadWEBP = (name, setSucess) => {
   let byteString = atob(dataURI.split(",")[1]);
 
   // separate out the mime component
-  let mimeString = dataURI
-    .split(",")[0]
-    .split(":")[1]
-    .split(";")[0];
+  let mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
 
   // write the bytes of the string to an ArrayBuffer
   let arrayBuffer = new ArrayBuffer(byteString.length);

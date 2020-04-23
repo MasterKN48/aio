@@ -79,12 +79,24 @@ const Document = () => {
       doc_to_other(file, setSuccess);
     }
     if (type.from === "HTML") {
+      if (type.to === "HTML") {
+        alert("To and from type is same");
+        return;
+      }
       html_to_other(file);
     }
     if (type.from === "TXT") {
+      if (type.to === "TXT") {
+        alert("To and from type is same");
+        return;
+      }
       txt_to_other(file);
     }
     if (type.from === "MD") {
+      if (type.to === "MD") {
+        alert("To and from type is same");
+        return;
+      }
       console.log("time");
     }
     setTimeout(() => {
@@ -131,8 +143,8 @@ const Document = () => {
     }
     if (type.from === "MD") {
       if (type.to === "PDF") {
-        alert("This conversion not working yet!");
-        //downloadMd_to_Pdf(file, setSuccess);
+        //alert("This conversion not working yet!");
+        downloadMd_to_Pdf(file, setSuccess);
       }
       if (type.to === "HTML") {
         downloadMd_to_Html(file, setSuccess);

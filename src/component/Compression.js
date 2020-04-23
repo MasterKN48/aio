@@ -87,7 +87,7 @@ const Compression = () => {
       reader.readAsDataURL(file);
       reader.onload = function () {
         const dataURL = reader.result;
-        WEBPCompressor(dataURL);
+        WEBPCompressor(dataURL, setLoading, setSuccess);
       };
     }
     if (type.from === "PDF") {
