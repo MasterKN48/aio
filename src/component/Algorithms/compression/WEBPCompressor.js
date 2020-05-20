@@ -15,20 +15,25 @@ export const WEBPCompressor = (dataURL, setLoading, setSucess) => {
   setLoading(false);
   let dataURI = document
     .getElementById("jpgtopng")
-    .toDataURL("image/webp", 0.03)
+    .toDataURL("image/webp", 1.0)
     .replace(/^data:image\/[^;]/, "data:application/octet-stream");
   var head = "data:image/webp;base64,";
   var imgFileSize = Math.round(((dataURI.length - head.length) * 3) / 4) / 1024;
   document.getElementById("size").innerText =
-    "File Size: " + imgFileSize.toFixed(2) + "kb";
+    "File Size: " + imgFileSize.toFixed(2) + "kb \nFile size may vary";
 };
-export const downloadWEBP = (name, setSucess) => {
+export const downloadWEBP = (name, setSucess, ratio) => {
   //file name as argument
   document.getElementById("downloader").download = name + ".webp";
   // converting data uri to blob aken form github gist
+  let si = (100 - ratio) / 100;
+  if (si === 1) {
+    si = 1.0;
+  }
+
   let dataURI = document
     .getElementById("jpgtopng")
-    .toDataURL("image/webp", 0.7)
+    .toDataURL("image/webp", si)
     .replace(/^data:image\/[^;]/, "data:application/octet-stream");
   let byteString = atob(dataURI.split(",")[1]);
 

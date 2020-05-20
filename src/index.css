@@ -73,3 +73,45 @@ html {
 .spd {
   box-shadow: none;
 }
+
+.slider {
+  -webkit-appearance: none;
+  width: 20%;
+  height: 10px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+@media screen and (max-width: 768px) {
+  .slider {
+    -webkit-appearance: none;
+    width: 40%;
+    height: 10px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.8;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+  }
+}
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #363636;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #363636;
+  cursor: pointer;
+}

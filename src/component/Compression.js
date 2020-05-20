@@ -12,6 +12,7 @@ import {
 import { PNG_JPG_Compressor } from "./Algorithms/compression/PNG_JPG_Compressor";
 const Compression = () => {
   const [file, setFile] = useState(null);
+  const [ratio, setRatio] = useState(50);
   const [success, setSuccess] = useState(false);
   const [load, setLoading] = useState(false);
   const [type, setType] = useState({
@@ -80,7 +81,7 @@ const Compression = () => {
       type.from === "PNG" ||
       type.from === "ICO"
     ) {
-      PNG_JPG_Compressor(file, setLoading, setSuccess);
+      PNG_JPG_Compressor(file, setLoading, setSuccess, ratio);
     }
     if (type.from === "WEBP") {
       let reader = new FileReader();
@@ -104,11 +105,14 @@ const Compression = () => {
   //handle download accordingly
   const download = () => {
     if (type.from === "WEBP") {
-      downloadWEBP(file.name.split(".")[0], setSuccess); //passing file name
+      downloadWEBP(file.name.split(".")[0], setSuccess, ratio); //passing file name
     }
     if (type.from === "PDF") {
       downloadPDF(file.name.split(".")[0], setSuccess); //passing file name
     }
+  };
+  const handelRatio = (e) => {
+    setRatio(Number(e.target.value));
   };
   return (
     <section className="container">
@@ -157,7 +161,25 @@ const Compression = () => {
           </div>
         </div>
       </div>
-
+      <div className="level is-mobile">
+        <div className="level-item has-centered">
+          <h6>Compression Ratio: {ratio}%</h6>
+        </div>
+      </div>
+      <div className="level is-mobile">
+        <div className="level-item has-centered">
+          <input
+            className="slider"
+            step="1"
+            id="ratio"
+            min="0"
+            max="99"
+            onChange={handelRatio}
+            value={ratio}
+            type="range"
+          />
+        </div>
+      </div>
       <div className="level has-centered">
         {load ? (
           <div className="columns level-item has-centered">

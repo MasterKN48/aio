@@ -1,22 +1,14 @@
 import imageCompression from "browser-image-compression";
-export const PNG_JPG_Compressor = (file, setLoading, setSuccess) => {
-  let si = 1;
-  if (700 > file.size / 1024) {
-    si = 0.5;
-  }
-  if (10 > file.size / 1024) {
-    si = 0.01;
-  } else {
-    si = 1;
-  }
+export const PNG_JPG_Compressor = (file, setLoading, setSuccess, ratio) => {
+  let si = (100 - ratio) / 100;
   var options = {
     maxSizeMB: si,
     maxWidthOrHeight: 1920,
-    useWebWorker: true
+    useWebWorker: true,
   };
-
+  //console.log(si);
   imageCompression(file, options)
-    .then(function(compressedFile) {
+    .then(function (compressedFile) {
       let blob = compressedFile;
       let reader = new FileReader();
       reader.readAsDataURL(blob);
@@ -30,7 +22,7 @@ export const PNG_JPG_Compressor = (file, setLoading, setSuccess) => {
         document.getElementById("downloader").href = dataURI;
       };
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error.message);
     });
 };
