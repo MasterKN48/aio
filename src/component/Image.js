@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import {
   JpgToAllConvertor,
-  downloadFromJpg
+  downloadFromJpg,
 } from "./Algorithms/image/JPG_To_ALL";
 import {
   PngToAllConvertor,
-  downloadFromPng
+  downloadFromPng,
 } from "./Algorithms/image/PNG_To_ALL";
 import {
   WebpToAllConvertor,
-  downloadFromWebp
+  downloadFromWebp,
 } from "./Algorithms/image/WEBP_To_ALL";
 import {
   SvgToAllConvertor,
-  downloadFromSvg
+  downloadFromSvg,
 } from "./Algorithms/image/SVG_To_ALL";
 import {
   GifToAllConvertor,
-  downloadFromGif
+  downloadFromGif,
 } from "./Algorithms/image/GIF_To_ALL";
 const Image = () => {
   // eslint-disable-next-line
@@ -28,20 +28,25 @@ const Image = () => {
   const [file, setFile] = useState(null);
   const [type, setType] = useState({
     from: "",
-    to: ""
+    to: "",
   });
   // const [error, setError] = useState("");
-  const showName = e => {
-    setFile(e.target.files[0]);
+  const showName = (e) => {
+    //console.log(e.target.files);
+    if (e.target.files.length > 5) {
+      alert("Only 5 files accepted.");
+      e.preventDefault();
+    }
+    setFile(e.target.files);
   };
-  const fileType = e => {
+  const fileType = (e) => {
     //console.log(e.target.value);
     setType({
       ...type,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
     if (file === null) {
       alert("Please first select file and types");
@@ -75,23 +80,24 @@ const Image = () => {
     if (type.from === "JPEG") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function() {
+      reader.onload = function () {
         const dataURL = reader.result;
         JpgToAllConvertor(dataURL);
       };
     }
     if (type.from === "PNG") {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function() {
-        const dataURL = reader.result;
-        PngToAllConvertor(dataURL);
-      };
+      PngToAllConvertor(file);
+      // let reader = new FileReader();
+      // reader.readAsDataURL(file);
+      // reader.onload = function () {
+      //   const dataURL = reader.result;
+      //   PngToAllConvertor(dataURL);
+      // };
     }
     if (type.from === "WEBP") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function() {
+      reader.onload = function () {
         const dataURL = reader.result;
         WebpToAllConvertor(dataURL);
       };
@@ -99,7 +105,7 @@ const Image = () => {
     if (type.from === "SVG") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function() {
+      reader.onload = function () {
         const dataURL = reader.result;
         SvgToAllConvertor(dataURL);
       };
@@ -107,7 +113,7 @@ const Image = () => {
     if (type.from === "GIF") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function() {
+      reader.onload = function () {
         const dataURL = reader.result;
         GifToAllConvertor(dataURL);
       };
@@ -141,7 +147,7 @@ const Image = () => {
       } else {
         s = type.to;
       }
-      downloadFromPng(file.name.split(".")[0], s.toLowerCase(), setSuccess); //passing file name
+      downloadFromPng(file, s.toLowerCase(), setSuccess); //passing file name
     }
     if (type.from === "WEBP") {
       let s;
@@ -232,6 +238,7 @@ const Image = () => {
                 name="image"
                 accept="image/*"
                 onChange={showName}
+                multiple
               />
               <span className="file-cta">
                 <span className="file-icon">
@@ -268,7 +275,27 @@ const Image = () => {
       </div>
       <canvas
         className="container has-centered"
-        id="canvas"
+        id="canvas 0"
+        style={{ display: "none" }}
+      ></canvas>
+      <canvas
+        className="container has-centered"
+        id="canvas 1"
+        style={{ display: "none" }}
+      ></canvas>
+      <canvas
+        className="container has-centered"
+        id="canvas 2"
+        style={{ display: "none" }}
+      ></canvas>
+      <canvas
+        className="container has-centered"
+        id="canvas 3"
+        style={{ display: "none" }}
+      ></canvas>
+      <canvas
+        className="container has-centered"
+        id="canvas 4"
         style={{ display: "none" }}
       ></canvas>
       <div className="has-centered">
